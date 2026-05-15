@@ -7,17 +7,18 @@ import time
 # --- 設定 ---
 CAMERA_ID = 0
 # オレンジのピンポン玉用 HSV 範囲（環境光で要調整）
-HSV_LOWER = np.array([0, 90, 100])
+HSV_LOWER = np.array([0, 90, 150])
 HSV_UPPER = np.array([80, 255, 255])
 MIN_RADIUS = 2      # 検出する最小半径（ピクセル）
 MAX_RADIUS = 150    # 検出する最大半径（ピクセル）
 # BALL_DIAMETER_MM = 40.0  #実直径
 
-UDP_IP = "127.0.0.1"
+UDP_IP = "10.232.42.210"
 UDP_PORT = 8080
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 def main():
+    print("initializing camera")
     cap = cv2.VideoCapture(CAMERA_ID)
     if not cap.isOpened():
         print("カメラを開けませんでした")
@@ -87,7 +88,7 @@ def main():
             # prev_radius = radius
 
             # --- データ送信 ---
-            data = struct.pack('d', x/1920)  # 位置のみ送る
+            data = struct.pack('<d', x/1920)  # 位置のみ送る
             sock.sendto(data, (UDP_IP, UDP_PORT))
 
         cv2.imshow("Ball Tracker", frame)
