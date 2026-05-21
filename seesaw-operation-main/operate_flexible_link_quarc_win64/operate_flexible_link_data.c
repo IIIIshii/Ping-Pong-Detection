@@ -7,9 +7,9 @@
  *
  * Code generation for model "operate_flexible_link".
  *
- * Model version              : 11.78
+ * Model version              : 11.80
  * Simulink Coder version : 9.9 (R2023a) 19-Nov-2022
- * C source code generated on : Thu May 21 16:18:07 2026
+ * C source code generated on : Thu May 21 17:18:29 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -122,25 +122,15 @@ P_operate_flexible_link_T operate_flexible_link_P = {
    */
   0.0015,
 
-  /* Expression: 0.6
-   * Referenced by: '<Root>/Constant'
+  /* Computed Parameter: TransferFcn2_A
+   * Referenced by: '<S1>/Transfer Fcn2'
    */
-  0.6,
+  -10.0,
 
-  /* Expression: 0.45703125
-   * Referenced by: '<Root>/pos'
+  /* Computed Parameter: TransferFcn2_C
+   * Referenced by: '<S1>/Transfer Fcn2'
    */
-  0.45703125,
-
-  /* Expression: 1.08*0.8/(9.8*0.2)
-   * Referenced by: '<S1>/Gain'
-   */
-  0.44081632653061226,
-
-  /* Expression: 50
-   * Referenced by: '<S1>/Gain1'
-   */
-  50.0,
+  10.0,
 
   /* Expression: -1
    * Referenced by: '<S3>/Direction Convention: (Right-Hand) system'
@@ -177,35 +167,55 @@ P_operate_flexible_link_T operate_flexible_link_P = {
    */
   { 1.0, 1.0, 1.0, 1.0 },
 
+  /* Expression: 0.6
+   * Referenced by: '<Root>/Constant'
+   */
+  0.6,
+
+  /* Expression: 0.4523096720377604
+   * Referenced by: '<Root>/pos'
+   */
+  0.4523096720377604,
+
+  /* Expression: 1.08*0.8/(9.8*0.2)
+   * Referenced by: '<S1>/Gain'
+   */
+  0.44081632653061226,
+
+  /* Expression: 1
+   * Referenced by: '<S1>/Gain1'
+   */
+  1.0,
+
   /* Computed Parameter: TransferFcn_A
    * Referenced by: '<S1>/Transfer Fcn'
    */
-  -10.0,
+  -3.2258064516129035,
 
   /* Computed Parameter: TransferFcn_C
    * Referenced by: '<S1>/Transfer Fcn'
    */
-  -990.0,
+  -30.341378268604622,
 
   /* Computed Parameter: TransferFcn_D
    * Referenced by: '<S1>/Transfer Fcn'
    */
-  100.0,
+  10.405827263267431,
 
   /* Computed Parameter: TransferFcn1_A
    * Referenced by: '<S1>/Transfer Fcn1'
    */
-  -5.0,
+  -4.838709677419355,
 
   /* Computed Parameter: TransferFcn1_C
    * Referenced by: '<S1>/Transfer Fcn1'
    */
-  -495.0,
+  -45.512067402906929,
 
   /* Computed Parameter: TransferFcn1_D
    * Referenced by: '<S1>/Transfer Fcn1'
    */
-  100.0,
+  10.405827263267431,
 
   /* Computed Parameter: Qs_A
    * Referenced by: '<Root>/Q(s)'

@@ -7,9 +7,9 @@
  *
  * Code generation for model "operate_flexible_link".
  *
- * Model version              : 11.78
+ * Model version              : 11.80
  * Simulink Coder version : 9.9 (R2023a) 19-Nov-2022
- * C source code generated on : Thu May 21 16:18:07 2026
+ * C source code generated on : Thu May 21 17:18:29 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -51,7 +51,7 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
   ODE1_IntgData *id = (ODE1_IntgData *)rtsiGetSolverData(si);
   real_T *f0 = id->f[0];
   int_T i;
-  int_T nXc = 5;
+  int_T nXc = 6;
   rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
   rtsiSetdX(si, f0);
   operate_flexible_link_derivatives();
@@ -113,66 +113,56 @@ void operate_flexible_link_output(void)
     operate_flexible_link_B.EncoderCalibrationradcount =
       operate_flexible_link_P.EncoderCalibrationradcount_Gain *
       operate_flexible_link_B.HILReadEncoder;
+  }
 
-    /* Sum: '<Root>/Subtract' incorporates:
-     *  Constant: '<Root>/Constant'
-     *  Constant: '<Root>/pos'
-     */
-    operate_flexible_link_B.Subtract = operate_flexible_link_P.Constant_Value -
-      operate_flexible_link_P.pos_Value;
+  /* TransferFcn: '<S1>/Transfer Fcn2' */
+  operate_flexible_link_B.TransferFcn2 = operate_flexible_link_P.TransferFcn2_C *
+    operate_flexible_link_X.TransferFcn2_CSTATE;
 
-    /* Gain: '<S1>/Gain' */
-    operate_flexible_link_B.Gain = operate_flexible_link_P.Gain_Gain *
-      operate_flexible_link_B.Subtract;
+  /* Gain: '<S3>/Direction Convention: (Right-Hand) system' */
+  operate_flexible_link_B.DirectionConventionRightHandsys =
+    operate_flexible_link_P.DirectionConventionRightHandsys *
+    operate_flexible_link_B.TransferFcn2;
 
-    /* Gain: '<S1>/Gain1' */
-    operate_flexible_link_B.Gain1 = operate_flexible_link_P.Gain1_Gain *
-      operate_flexible_link_B.Gain;
-
-    /* Gain: '<S3>/Direction Convention: (Right-Hand) system' */
-    operate_flexible_link_B.DirectionConventionRightHandsys =
-      operate_flexible_link_P.DirectionConventionRightHandsys *
-      operate_flexible_link_B.Gain1;
-
+  /* Saturate: '<S3>/Amplifier Saturation (V)' */
+  u0 = operate_flexible_link_B.DirectionConventionRightHandsys;
+  u1 = operate_flexible_link_P.AmplifierSaturationV_LowerSat;
+  u2 = operate_flexible_link_P.AmplifierSaturationV_UpperSat;
+  if (u0 > u2) {
     /* Saturate: '<S3>/Amplifier Saturation (V)' */
-    u0 = operate_flexible_link_B.DirectionConventionRightHandsys;
-    u1 = operate_flexible_link_P.AmplifierSaturationV_LowerSat;
-    u2 = operate_flexible_link_P.AmplifierSaturationV_UpperSat;
-    if (u0 > u2) {
-      /* Saturate: '<S3>/Amplifier Saturation (V)' */
-      operate_flexible_link_B.AmplifierSaturationV = u2;
-    } else if (u0 < u1) {
-      /* Saturate: '<S3>/Amplifier Saturation (V)' */
-      operate_flexible_link_B.AmplifierSaturationV = u1;
-    } else {
-      /* Saturate: '<S3>/Amplifier Saturation (V)' */
-      operate_flexible_link_B.AmplifierSaturationV = u0;
-    }
+    operate_flexible_link_B.AmplifierSaturationV = u2;
+  } else if (u0 < u1) {
+    /* Saturate: '<S3>/Amplifier Saturation (V)' */
+    operate_flexible_link_B.AmplifierSaturationV = u1;
+  } else {
+    /* Saturate: '<S3>/Amplifier Saturation (V)' */
+    operate_flexible_link_B.AmplifierSaturationV = u0;
+  }
 
-    /* End of Saturate: '<S3>/Amplifier Saturation (V)' */
+  /* End of Saturate: '<S3>/Amplifier Saturation (V)' */
 
-    /* Gain: '<S3>/Inverse Amplifier  Gain (V//V)' */
-    operate_flexible_link_B.InverseAmplifierGainVV =
-      operate_flexible_link_P.InverseAmplifierGainVV_Gain *
-      operate_flexible_link_B.AmplifierSaturationV;
+  /* Gain: '<S3>/Inverse Amplifier  Gain (V//V)' */
+  operate_flexible_link_B.InverseAmplifierGainVV =
+    operate_flexible_link_P.InverseAmplifierGainVV_Gain *
+    operate_flexible_link_B.AmplifierSaturationV;
 
+  /* Saturate: '<S3>/DACB Saturation (V)' */
+  u0 = operate_flexible_link_B.InverseAmplifierGainVV;
+  u1 = operate_flexible_link_P.DACBSaturationV_LowerSat;
+  u2 = operate_flexible_link_P.DACBSaturationV_UpperSat;
+  if (u0 > u2) {
     /* Saturate: '<S3>/DACB Saturation (V)' */
-    u0 = operate_flexible_link_B.InverseAmplifierGainVV;
-    u1 = operate_flexible_link_P.DACBSaturationV_LowerSat;
-    u2 = operate_flexible_link_P.DACBSaturationV_UpperSat;
-    if (u0 > u2) {
-      /* Saturate: '<S3>/DACB Saturation (V)' */
-      operate_flexible_link_B.DACBSaturationV = u2;
-    } else if (u0 < u1) {
-      /* Saturate: '<S3>/DACB Saturation (V)' */
-      operate_flexible_link_B.DACBSaturationV = u1;
-    } else {
-      /* Saturate: '<S3>/DACB Saturation (V)' */
-      operate_flexible_link_B.DACBSaturationV = u0;
-    }
+    operate_flexible_link_B.DACBSaturationV = u2;
+  } else if (u0 < u1) {
+    /* Saturate: '<S3>/DACB Saturation (V)' */
+    operate_flexible_link_B.DACBSaturationV = u1;
+  } else {
+    /* Saturate: '<S3>/DACB Saturation (V)' */
+    operate_flexible_link_B.DACBSaturationV = u0;
+  }
 
-    /* End of Saturate: '<S3>/DACB Saturation (V)' */
-
+  /* End of Saturate: '<S3>/DACB Saturation (V)' */
+  if (rtmIsMajorTimeStep(operate_flexible_link_M)) {
     /* S-Function (hil_write_analog_block): '<S2>/HIL Write Analog' */
 
     /* S-Function Block: operate_flexible_link/SRV02 Flexible Link/HIL Write Analog (hil_write_analog_block) */
@@ -230,13 +220,28 @@ void operate_flexible_link_output(void)
       operate_flexible_link_B.HILReadAnalog =
         operate_flexible_link_DW.HILReadAnalog_Buffer;
     }
+
+    /* Sum: '<Root>/Subtract' incorporates:
+     *  Constant: '<Root>/Constant'
+     *  Constant: '<Root>/pos'
+     */
+    operate_flexible_link_B.Subtract = operate_flexible_link_P.Constant_Value -
+      operate_flexible_link_P.pos_Value;
+
+    /* Gain: '<S1>/Gain' */
+    operate_flexible_link_B.Gain = operate_flexible_link_P.Gain_Gain *
+      operate_flexible_link_B.Subtract;
+
+    /* Gain: '<S1>/Gain1' */
+    operate_flexible_link_B.Gain1 = operate_flexible_link_P.Gain1_Gain *
+      operate_flexible_link_B.Gain;
   }
 
   /* TransferFcn: '<S1>/Transfer Fcn' */
   operate_flexible_link_B.TransferFcn = operate_flexible_link_P.TransferFcn_C *
     operate_flexible_link_X.TransferFcn_CSTATE;
   operate_flexible_link_B.TransferFcn += operate_flexible_link_P.TransferFcn_D *
-    0.0;
+    operate_flexible_link_B.Gain1;
 
   /* TransferFcn: '<S1>/Transfer Fcn1' */
   operate_flexible_link_B.TransferFcn1 = operate_flexible_link_P.TransferFcn1_C *
@@ -306,9 +311,15 @@ void operate_flexible_link_derivatives(void)
   XDot_operate_flexible_link_T *_rtXdot;
   _rtXdot = ((XDot_operate_flexible_link_T *) operate_flexible_link_M->derivs);
 
+  /* Derivatives for TransferFcn: '<S1>/Transfer Fcn2' */
+  _rtXdot->TransferFcn2_CSTATE = operate_flexible_link_P.TransferFcn2_A *
+    operate_flexible_link_X.TransferFcn2_CSTATE;
+  _rtXdot->TransferFcn2_CSTATE += operate_flexible_link_B.TransferFcn1;
+
   /* Derivatives for TransferFcn: '<S1>/Transfer Fcn' */
   _rtXdot->TransferFcn_CSTATE = operate_flexible_link_P.TransferFcn_A *
     operate_flexible_link_X.TransferFcn_CSTATE;
+  _rtXdot->TransferFcn_CSTATE += operate_flexible_link_B.Gain1;
 
   /* Derivatives for TransferFcn: '<S1>/Transfer Fcn1' */
   _rtXdot->TransferFcn1_CSTATE = operate_flexible_link_P.TransferFcn1_A *
@@ -534,6 +545,9 @@ void operate_flexible_link_initialize(void)
       }
     }
   }
+
+  /* InitializeConditions for TransferFcn: '<S1>/Transfer Fcn2' */
+  operate_flexible_link_X.TransferFcn2_CSTATE = 0.0;
 
   /* InitializeConditions for TransferFcn: '<S1>/Transfer Fcn' */
   operate_flexible_link_X.TransferFcn_CSTATE = 0.0;
@@ -794,10 +808,10 @@ RT_MODEL_operate_flexible_lin_T *operate_flexible_link(void)
   operate_flexible_link_M->Timing.stepSize1 = 0.033333333333333333;
 
   /* External mode info */
-  operate_flexible_link_M->Sizes.checksums[0] = (2751432449U);
-  operate_flexible_link_M->Sizes.checksums[1] = (3914848674U);
-  operate_flexible_link_M->Sizes.checksums[2] = (3512162721U);
-  operate_flexible_link_M->Sizes.checksums[3] = (2763872541U);
+  operate_flexible_link_M->Sizes.checksums[0] = (1271216279U);
+  operate_flexible_link_M->Sizes.checksums[1] = (2986127771U);
+  operate_flexible_link_M->Sizes.checksums[2] = (508556482U);
+  operate_flexible_link_M->Sizes.checksums[3] = (1402876131U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
@@ -827,14 +841,15 @@ RT_MODEL_operate_flexible_lin_T *operate_flexible_link(void)
   {
     operate_flexible_link_B.HILReadEncoder = 0.0;
     operate_flexible_link_B.EncoderCalibrationradcount = 0.0;
-    operate_flexible_link_B.Subtract = 0.0;
-    operate_flexible_link_B.Gain = 0.0;
-    operate_flexible_link_B.Gain1 = 0.0;
+    operate_flexible_link_B.TransferFcn2 = 0.0;
     operate_flexible_link_B.DirectionConventionRightHandsys = 0.0;
     operate_flexible_link_B.AmplifierSaturationV = 0.0;
     operate_flexible_link_B.InverseAmplifierGainVV = 0.0;
     operate_flexible_link_B.DACBSaturationV = 0.0;
     operate_flexible_link_B.HILReadAnalog = 0.0;
+    operate_flexible_link_B.Subtract = 0.0;
+    operate_flexible_link_B.Gain = 0.0;
+    operate_flexible_link_B.Gain1 = 0.0;
     operate_flexible_link_B.TransferFcn = 0.0;
     operate_flexible_link_B.TransferFcn1 = 0.0;
     operate_flexible_link_B.y = 0.0;
@@ -888,16 +903,16 @@ RT_MODEL_operate_flexible_lin_T *operate_flexible_link(void)
   }
 
   /* Initialize Sizes */
-  operate_flexible_link_M->Sizes.numContStates = (5);/* Number of continuous states */
+  operate_flexible_link_M->Sizes.numContStates = (6);/* Number of continuous states */
   operate_flexible_link_M->Sizes.numPeriodicContStates = (0);
                                       /* Number of periodic continuous states */
   operate_flexible_link_M->Sizes.numY = (0);/* Number of model outputs */
   operate_flexible_link_M->Sizes.numU = (0);/* Number of model inputs */
   operate_flexible_link_M->Sizes.sysDirFeedThru = (0);/* The model is not direct feedthrough */
   operate_flexible_link_M->Sizes.numSampTimes = (2);/* Number of sample times */
-  operate_flexible_link_M->Sizes.numBlocks = (21);/* Number of blocks */
-  operate_flexible_link_M->Sizes.numBlockIO = (14);/* Number of block outputs */
-  operate_flexible_link_M->Sizes.numBlockPrms = (109);/* Sum of parameter "widths" */
+  operate_flexible_link_M->Sizes.numBlocks = (22);/* Number of blocks */
+  operate_flexible_link_M->Sizes.numBlockIO = (15);/* Number of block outputs */
+  operate_flexible_link_M->Sizes.numBlockPrms = (111);/* Sum of parameter "widths" */
   return operate_flexible_link_M;
 }
 
