@@ -1,99 +1,86 @@
-import cv2
 import numpy as np
 import time
+import signal
+import sys
+from multiprocessing.shared_memory import SharedMemory
 
 import matlab.engine
 
-
 # --- 設定 ---
-CAMERA_ID = 0
-# オレンジのピンポン玉用 HSV 範囲（環境光で要調整）
-HSV_LOWER = np.array([0, 90, 150])
-HSV_UPPER = np.array([80, 255, 255])
-MIN_RADIUS = 2      # 検出する最小半径（ピクセル）
-MAX_RADIUS = 150    # 検出する最大半径（ピクセル）
-# BALL_DIAMETER_MM = 40.0  #実直径
+SHM_NAME             = "ball_pos"
+CAMERA_READY_TIMEOUT = 15.0   # seconds: camera_worker の起動完了待ちタイムアウト
+
+# --- shared_memory オフセット ---
+OFFSET_POS      = 0   # float64, 8 bytes
+OFFSET_DETECTED = 8   # uint8,   1 byte  (1=検出中, 0=未検出)
+OFFSET_ALIVE    = 9   # uint8,   1 byte  (1=カメラ動作中, 0=停止)
+
 
 def main():
-	print("initializing camera")
-	cap = cv2.VideoCapture(CAMERA_ID)
-	if not cap.isOpened():
-			print("カメラを開けませんでした")
-			return
+    # --- shared_memory にアタッチ (作成はしない) ---
+    print("[Simulink_operator] attaching to shared memory...")
+    try:
+        shm = SharedMemory(name=SHM_NAME, create=False)
+    except FileNotFoundError:
+        print("[Simulink_operator] ERROR: camera_worker.py が起動していません。"
+              "先に camera_worker.py を起動してください。")
+        sys.exit(1)
 
-	# 可能ならカメラを高速モードに
-	cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
-	cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
-	cap.set(cv2.CAP_PROP_FPS, 30)
-	# prev_pos = None      # (x, y) ピクセル
-	# prev_time = None     # 秒
-	# prev_radius = None
+    buf = np.frombuffer(shm.buf, dtype=np.uint8)
 
-	# MATLABを起動
-	eng = matlab.engine.connect_matlab()
+    def _shutdown(sig, frame):
+        print("[Simulink_operator] shutting down...")
+        shm.close()   # unlink は呼ばない (オーナーは camera_worker)
+        sys.exit(0)
 
-	# モデルをロード
-	model_name = 'operate_flexible_link'
-	eng.load_system(model_name, nargout=0)
+    signal.signal(signal.SIGINT,  _shutdown)
+    signal.signal(signal.SIGTERM, _shutdown)
 
-	# QUARCモデルを開始
-	eng.qc_build_model(model_name, nargout=0) # 最初だけ
-	eng.qc_start_model(model_name, nargout=0)
+    # --- camera_worker の起動完了を待機 ---
+    print("[Simulink_operator] waiting for camera_worker to be ready...")
+    deadline = time.time() + CAMERA_READY_TIMEOUT
+    while time.time() < deadline:
+        if buf[OFFSET_ALIVE] == 1:
+            break
+        time.sleep(0.1)
+    else:
+        print(f"[Simulink_operator] ERROR: {CAMERA_READY_TIMEOUT}秒以内に"
+              "camera_worker が起動しませんでした")
+        _shutdown(None, None)
 
-	while True:
-			ret, frame = cap.read()
-			if not ret:
-					break
-			now = time.time()
+    # --- MATLAB / Simulink 起動 ---
+    print("[Simulink_operator] camera ready, connecting to MATLAB...")
+    eng = matlab.engine.connect_matlab()
 
-			# --- 前処理 ---
-			blurred = cv2.GaussianBlur(frame, (9, 9), 0)
-			hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
+    model_name = 'operate_flexible_link'
+    eng.load_system(model_name, nargout=0)
+    eng.qc_build_model(model_name, nargout=0)
+    eng.qc_start_model(model_name, nargout=0)
 
-			# --- 色マスク ---
-			mask = cv2.inRange(hsv, HSV_LOWER, HSV_UPPER)
-			mask = cv2.erode(mask, None, iterations=2)
-			mask = cv2.dilate(mask, None, iterations=2)
+    print("[Simulink_operator] Simulink started, entering control loop")
 
-			# --- 輪郭から最大の円形領域を選ぶ ---
-			contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL,
-																			cv2.CHAIN_APPROX_SIMPLE)
-			ball = None  # (x, y, radius)
-			if contours:
-					c = max(contours, key=cv2.contourArea)
-					(x, y), radius = cv2.minEnclosingCircle(c)
-					area = cv2.contourArea(c)
-					# 円形度チェック（1.0 に近いほど真円）
-					if area > 0:
-							circularity = 4 * np.pi * area / (cv2.arcLength(c, True) ** 2 + 1e-6)
-							if MIN_RADIUS < radius < MAX_RADIUS and circularity > 0.7:
-									ball = (x, y, radius)
+    prev_pos = 0.5   # 未検出時に送る前回値 (初期値: 中央)
 
-			# --- 速度計算 ---
-			# speed_px = 0.0
-			# speed_mm = 0.0
-			if ball is not None:
-					x, y, radius = ball
-					# 描画
-					cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 0), 2)
-					cv2.circle(frame, (int(x), int(y)), 3, (0, 0, 255), -1)
-					cv2.putText(frame,
-											f"pos=({int(x)},{int(y)})",
-											(10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6,
-											(0, 255, 0), 2)
-			
-			# simulinkに代入
-			_pos = (1920-x)/1920
-			eng.set_param(f"{model_name}/pos", "Value", str(_pos), nargout=0)
-			print(f"{now} {_pos}")
-			
-			# cv2.imshow("Ball Tracker", frame)
-			# cv2.imshow("Mask", mask)
-			if cv2.waitKey(1) & 0xFF == ord('q'):
-					break
+    # --- 制御ループ ---
+    while True:
+        # camera_worker の生存確認
+        if buf[OFFSET_ALIVE] == 0:
+            print("[Simulink_operator] camera_worker が停止しました。終了します。")
+            break
 
-	cap.release()
-	cv2.destroyAllWindows()
+        # shared_memory から位置を読み取り
+        pos      = float(np.frombuffer(bytes(buf[0:8]), dtype=np.float64)[0])
+        detected = bool(buf[OFFSET_DETECTED])
+
+        if detected:
+            prev_pos = pos   # 検出時のみ更新
+
+        # Simulink へ送信 (未検出時は前回値を保持して送信)
+        eng.set_param(f"{model_name}/pos", "Value", str(prev_pos), nargout=0)
+        print(f"[{time.time():.3f}] pos={prev_pos:.4f}  detected={detected}")
+
+    _shutdown(None, None)
+
 
 if __name__ == "__main__":
     main()
