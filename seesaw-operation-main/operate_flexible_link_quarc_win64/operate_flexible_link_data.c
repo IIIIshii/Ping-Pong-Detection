@@ -9,7 +9,7 @@
  *
  * Model version              : 11.80
  * Simulink Coder version : 9.9 (R2023a) 19-Nov-2022
- * C source code generated on : Thu May 21 17:18:29 2026
+ * C source code generated on : Thu May 21 17:33:08 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -172,10 +172,10 @@ P_operate_flexible_link_T operate_flexible_link_P = {
    */
   0.6,
 
-  /* Expression: 0.4523096720377604
+  /* Expression: 0.4525098164876302
    * Referenced by: '<Root>/pos'
    */
-  0.4523096720377604,
+  0.45250981648763022,
 
   /* Expression: 1.08*0.8/(9.8*0.2)
    * Referenced by: '<S1>/Gain'

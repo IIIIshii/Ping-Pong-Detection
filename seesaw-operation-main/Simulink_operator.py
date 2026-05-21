@@ -17,6 +17,7 @@ OFFSET_ALIVE    = 9   # uint8,   1 byte  (1=カメラ動作中, 0=停止)
 
 
 def main():
+    START_TIME = time.time()
     # --- shared_memory にアタッチ (作成はしない) ---
     print("[Simulink_operator] attaching to shared memory...")
     try:
@@ -77,7 +78,7 @@ def main():
 
         # Simulink へ送信 (未検出時は前回値を保持して送信)
         eng.set_param(f"{model_name}/pos", "Value", str(prev_pos), nargout=0)
-        print(f"[{time.time():.3f}] pos={prev_pos:.4f}  detected={detected}")
+        print(f"[{time.time()-START_TIME:.3f}] pos={prev_pos}  detected={detected}")
 
     _shutdown(None, None)
 
