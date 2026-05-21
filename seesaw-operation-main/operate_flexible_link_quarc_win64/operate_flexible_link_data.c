@@ -7,9 +7,9 @@
  *
  * Code generation for model "operate_flexible_link".
  *
- * Model version              : 11.69
+ * Model version              : 11.78
  * Simulink Coder version : 9.9 (R2023a) 19-Nov-2022
- * C source code generated on : Fri May 15 18:24:59 2026
+ * C source code generated on : Thu May 21 16:18:07 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -122,53 +122,23 @@ P_operate_flexible_link_T operate_flexible_link_P = {
    */
   0.0015,
 
-  /* Computed Parameter: Qs1_A
-   * Referenced by: '<Root>/Q(s)1'
+  /* Expression: 0.6
+   * Referenced by: '<Root>/Constant'
    */
-  -0.2,
+  0.6,
 
-  /* Computed Parameter: Qs1_C
-   * Referenced by: '<Root>/Q(s)1'
-   */
-  0.2,
-
-  /* Expression: 0.5677083333333334
+  /* Expression: 0.45703125
    * Referenced by: '<Root>/pos'
    */
-  0.56770833333333337,
+  0.45703125,
 
-  /* Expression: 3/1000
+  /* Expression: 1.08*0.8/(9.8*0.2)
    * Referenced by: '<S1>/Gain'
    */
-  0.003,
+  0.44081632653061226,
 
-  /* Computed Parameter: TransferFcn_A
-   * Referenced by: '<S1>/Transfer Fcn'
-   */
-  -15.0,
-
-  /* Computed Parameter: TransferFcn_C
-   * Referenced by: '<S1>/Transfer Fcn'
-   */
-  -735.0,
-
-  /* Computed Parameter: TransferFcn_D
-   * Referenced by: '<S1>/Transfer Fcn'
-   */
-  50.0,
-
-  /* Computed Parameter: TransferFcn1_A
-   * Referenced by: '<S1>/Transfer Fcn1'
-   */
-  -15.0,
-
-  /* Computed Parameter: TransferFcn1_C
-   * Referenced by: '<S1>/Transfer Fcn1'
-   */
-  -735.0,
-
-  /* Computed Parameter: TransferFcn1_D
-   * Referenced by: '<S1>/Transfer Fcn1'
+  /* Expression: 50
+   * Referenced by: '<S1>/Gain1'
    */
   50.0,
 
@@ -207,10 +177,35 @@ P_operate_flexible_link_T operate_flexible_link_P = {
    */
   { 1.0, 1.0, 1.0, 1.0 },
 
-  /* Expression: 0.3
-   * Referenced by: '<Root>/Constant'
+  /* Computed Parameter: TransferFcn_A
+   * Referenced by: '<S1>/Transfer Fcn'
    */
-  0.3,
+  -10.0,
+
+  /* Computed Parameter: TransferFcn_C
+   * Referenced by: '<S1>/Transfer Fcn'
+   */
+  -990.0,
+
+  /* Computed Parameter: TransferFcn_D
+   * Referenced by: '<S1>/Transfer Fcn'
+   */
+  100.0,
+
+  /* Computed Parameter: TransferFcn1_A
+   * Referenced by: '<S1>/Transfer Fcn1'
+   */
+  -5.0,
+
+  /* Computed Parameter: TransferFcn1_C
+   * Referenced by: '<S1>/Transfer Fcn1'
+   */
+  -495.0,
+
+  /* Computed Parameter: TransferFcn1_D
+   * Referenced by: '<S1>/Transfer Fcn1'
+   */
+  100.0,
 
   /* Computed Parameter: Qs_A
    * Referenced by: '<Root>/Q(s)'
@@ -221,6 +216,16 @@ P_operate_flexible_link_T operate_flexible_link_P = {
    * Referenced by: '<Root>/Q(s)'
    */
   { 0.0, 12.258312499999999 },
+
+  /* Computed Parameter: Qs1_A
+   * Referenced by: '<Root>/Q(s)1'
+   */
+  -0.2,
+
+  /* Computed Parameter: Qs1_C
+   * Referenced by: '<Root>/Q(s)1'
+   */
+  0.2,
 
   /* Computed Parameter: HILInitialize_CKChannels
    * Referenced by: '<S2>/HIL Initialize'

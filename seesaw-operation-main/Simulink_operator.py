@@ -83,7 +83,7 @@ def main():
 											(0, 255, 0), 2)
 			
 			# simulinkに代入
-			_pos = x/1920
+			_pos = (1920-x)/1920
 			eng.set_param(f"{model_name}/pos", "Value", str(_pos), nargout=0)
 			print(f"{now} {_pos}")
 			

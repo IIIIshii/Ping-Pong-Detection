@@ -8,7 +8,7 @@ clear all
     N_d = 100;% # of sampling frequencies (O(N^3))
     N_for = 1;% O(N)
     %Sim_time = 60*60*10; % [sec] O(N)
-    Sim_time = 60; % [sec] O(N)
+    Sim_time = 30; % [sec] O(N)
     f_low =-1;
     f_up = 2.3;% log(250) = 2.3979.., 250Hz is the Nyquist frequency
     
@@ -17,10 +17,10 @@ clear all
     
     
    %% Setting Simulink parameters   
-   sim_filename = 'system_step_input';
+   sim_filename = 'seesaw';
     open_system(sim_filename)
     set_param(sim_filename,'StopTime','Sim_time+10')% Set the terminal time
-    % dt = 0.002;% sampling time [sec]    
+    % dt = 0.034;% sampling time [sec]    
     % decim = round(Sim_time/dt);% To set the decimation for the "To Workspace" block
     % % decim = 1; % default
     % set_param([sim_filename,'/To Workspace'],'Decimation','decim')

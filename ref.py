@@ -87,7 +87,7 @@ def main():
             # prev_radius = radius
 
             # --- データ送信 ---
-            data = struct.pack('d', x/1920)  # 位置のみ送る
+            data = struct.pack('<d', x/1920)  # 位置のみ送る
             sock.sendto(data, (UDP_IP, UDP_PORT))
 
         cv2.imshow("Ball Tracker", frame)

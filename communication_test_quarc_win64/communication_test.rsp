@@ -1,0 +1,10 @@
+﻿communication_test.obj
+communication_test_data.obj
+communication_test_main.obj
+rtGetInf.obj
+rtGetNaN.obj
+rt_nonfinite.obj
+rt_sim.obj
+ext_svr.obj
+updown.obj
+ext_work.obj

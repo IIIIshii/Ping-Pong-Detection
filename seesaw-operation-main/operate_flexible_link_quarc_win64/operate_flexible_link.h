@@ -7,9 +7,9 @@
  *
  * Code generation for model "operate_flexible_link".
  *
- * Model version              : 11.69
+ * Model version              : 11.78
  * Simulink Coder version : 9.9 (R2023a) 19-Nov-2022
- * C source code generated on : Fri May 15 18:24:59 2026
+ * C source code generated on : Thu May 21 16:18:07 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -869,18 +869,19 @@ typedef struct {
   real_T HILReadEncoder;               /* '<S2>/HIL Read Encoder' */
   real_T EncoderCalibrationradcount;
                                   /* '<S2>/Encoder Calibration  (rad//count)' */
-  real_T Qs1;                          /* '<Root>/Q(s)1' */
   real_T Subtract;                     /* '<Root>/Subtract' */
   real_T Gain;                         /* '<S1>/Gain' */
-  real_T TransferFcn;                  /* '<S1>/Transfer Fcn' */
-  real_T TransferFcn1;                 /* '<S1>/Transfer Fcn1' */
+  real_T Gain1;                        /* '<S1>/Gain1' */
   real_T DirectionConventionRightHandsys;
                           /* '<S3>/Direction Convention: (Right-Hand) system' */
   real_T AmplifierSaturationV;         /* '<S3>/Amplifier Saturation (V)' */
   real_T InverseAmplifierGainVV;     /* '<S3>/Inverse Amplifier  Gain (V//V)' */
   real_T DACBSaturationV;              /* '<S3>/DACB Saturation (V)' */
   real_T HILReadAnalog;                /* '<S2>/HIL Read Analog' */
+  real_T TransferFcn;                  /* '<S1>/Transfer Fcn' */
+  real_T TransferFcn1;                 /* '<S1>/Transfer Fcn1' */
   real_T y;                            /* '<Root>/Q(s)' */
+  real_T Qs1;                          /* '<Root>/Q(s)1' */
 } B_operate_flexible_link_T;
 
 /* Block states (default storage) for system '<Root>' */
@@ -912,26 +913,26 @@ typedef struct {
 
 /* Continuous states (default storage) */
 typedef struct {
-  real_T Qs1_CSTATE;                   /* '<Root>/Q(s)1' */
   real_T TransferFcn_CSTATE;           /* '<S1>/Transfer Fcn' */
   real_T TransferFcn1_CSTATE;          /* '<S1>/Transfer Fcn1' */
   real_T Qs_CSTATE[2];                 /* '<Root>/Q(s)' */
+  real_T Qs1_CSTATE;                   /* '<Root>/Q(s)1' */
 } X_operate_flexible_link_T;
 
 /* State derivatives (default storage) */
 typedef struct {
-  real_T Qs1_CSTATE;                   /* '<Root>/Q(s)1' */
   real_T TransferFcn_CSTATE;           /* '<S1>/Transfer Fcn' */
   real_T TransferFcn1_CSTATE;          /* '<S1>/Transfer Fcn1' */
   real_T Qs_CSTATE[2];                 /* '<Root>/Q(s)' */
+  real_T Qs1_CSTATE;                   /* '<Root>/Q(s)1' */
 } XDot_operate_flexible_link_T;
 
 /* State disabled  */
 typedef struct {
-  boolean_T Qs1_CSTATE;                /* '<Root>/Q(s)1' */
   boolean_T TransferFcn_CSTATE;        /* '<S1>/Transfer Fcn' */
   boolean_T TransferFcn1_CSTATE;       /* '<S1>/Transfer Fcn1' */
   boolean_T Qs_CSTATE[2];              /* '<Root>/Q(s)' */
+  boolean_T Qs1_CSTATE;                /* '<Root>/Q(s)1' */
 } XDis_operate_flexible_link_T;
 
 #ifndef ODE1_INTG
@@ -1021,35 +1022,17 @@ struct P_operate_flexible_link_T_ {
   real_T EncoderCalibrationradcount_Gain;/* Expression: 0.0015
                                           * Referenced by: '<S2>/Encoder Calibration  (rad//count)'
                                           */
-  real_T Qs1_A;                        /* Computed Parameter: Qs1_A
-                                        * Referenced by: '<Root>/Q(s)1'
+  real_T Constant_Value;               /* Expression: 0.6
+                                        * Referenced by: '<Root>/Constant'
                                         */
-  real_T Qs1_C;                        /* Computed Parameter: Qs1_C
-                                        * Referenced by: '<Root>/Q(s)1'
-                                        */
-  real_T pos_Value;                    /* Expression: 0.5677083333333334
+  real_T pos_Value;                    /* Expression: 0.45703125
                                         * Referenced by: '<Root>/pos'
                                         */
-  real_T Gain_Gain;                    /* Expression: 3/1000
+  real_T Gain_Gain;                    /* Expression: 1.08*0.8/(9.8*0.2)
                                         * Referenced by: '<S1>/Gain'
                                         */
-  real_T TransferFcn_A;                /* Computed Parameter: TransferFcn_A
-                                        * Referenced by: '<S1>/Transfer Fcn'
-                                        */
-  real_T TransferFcn_C;                /* Computed Parameter: TransferFcn_C
-                                        * Referenced by: '<S1>/Transfer Fcn'
-                                        */
-  real_T TransferFcn_D;                /* Computed Parameter: TransferFcn_D
-                                        * Referenced by: '<S1>/Transfer Fcn'
-                                        */
-  real_T TransferFcn1_A;               /* Computed Parameter: TransferFcn1_A
-                                        * Referenced by: '<S1>/Transfer Fcn1'
-                                        */
-  real_T TransferFcn1_C;               /* Computed Parameter: TransferFcn1_C
-                                        * Referenced by: '<S1>/Transfer Fcn1'
-                                        */
-  real_T TransferFcn1_D;               /* Computed Parameter: TransferFcn1_D
-                                        * Referenced by: '<S1>/Transfer Fcn1'
+  real_T Gain1_Gain;                   /* Expression: 50
+                                        * Referenced by: '<S1>/Gain1'
                                         */
   real_T DirectionConventionRightHandsys;/* Expression: -1
                                           * Referenced by: '<S3>/Direction Convention: (Right-Hand) system'
@@ -1072,14 +1055,35 @@ struct P_operate_flexible_link_T_ {
   real_T EnableVoltPAQX2X4_Value[4];   /* Expression: [1 1 1 1]
                                         * Referenced by: '<S2>/Enable VoltPAQ-X2,X4'
                                         */
-  real_T Constant_Value;               /* Expression: 0.3
-                                        * Referenced by: '<Root>/Constant'
+  real_T TransferFcn_A;                /* Computed Parameter: TransferFcn_A
+                                        * Referenced by: '<S1>/Transfer Fcn'
+                                        */
+  real_T TransferFcn_C;                /* Computed Parameter: TransferFcn_C
+                                        * Referenced by: '<S1>/Transfer Fcn'
+                                        */
+  real_T TransferFcn_D;                /* Computed Parameter: TransferFcn_D
+                                        * Referenced by: '<S1>/Transfer Fcn'
+                                        */
+  real_T TransferFcn1_A;               /* Computed Parameter: TransferFcn1_A
+                                        * Referenced by: '<S1>/Transfer Fcn1'
+                                        */
+  real_T TransferFcn1_C;               /* Computed Parameter: TransferFcn1_C
+                                        * Referenced by: '<S1>/Transfer Fcn1'
+                                        */
+  real_T TransferFcn1_D;               /* Computed Parameter: TransferFcn1_D
+                                        * Referenced by: '<S1>/Transfer Fcn1'
                                         */
   real_T Qs_A[2];                      /* Computed Parameter: Qs_A
                                         * Referenced by: '<Root>/Q(s)'
                                         */
   real_T Qs_C[2];                      /* Computed Parameter: Qs_C
                                         * Referenced by: '<Root>/Q(s)'
+                                        */
+  real_T Qs1_A;                        /* Computed Parameter: Qs1_A
+                                        * Referenced by: '<Root>/Q(s)1'
+                                        */
+  real_T Qs1_C;                        /* Computed Parameter: Qs1_C
+                                        * Referenced by: '<Root>/Q(s)1'
                                         */
   int32_T HILInitialize_CKChannels[3];
                                  /* Computed Parameter: HILInitialize_CKChannels
