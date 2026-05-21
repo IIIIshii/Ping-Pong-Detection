@@ -7,9 +7,9 @@
  *
  * Code generation for model "operate_flexible_link".
  *
- * Model version              : 11.78
+ * Model version              : 11.80
  * Simulink Coder version : 9.9 (R2023a) 19-Nov-2022
- * C source code generated on : Thu May 21 16:18:07 2026
+ * C source code generated on : Thu May 21 17:33:08 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -869,15 +869,16 @@ typedef struct {
   real_T HILReadEncoder;               /* '<S2>/HIL Read Encoder' */
   real_T EncoderCalibrationradcount;
                                   /* '<S2>/Encoder Calibration  (rad//count)' */
-  real_T Subtract;                     /* '<Root>/Subtract' */
-  real_T Gain;                         /* '<S1>/Gain' */
-  real_T Gain1;                        /* '<S1>/Gain1' */
+  real_T TransferFcn2;                 /* '<S1>/Transfer Fcn2' */
   real_T DirectionConventionRightHandsys;
                           /* '<S3>/Direction Convention: (Right-Hand) system' */
   real_T AmplifierSaturationV;         /* '<S3>/Amplifier Saturation (V)' */
   real_T InverseAmplifierGainVV;     /* '<S3>/Inverse Amplifier  Gain (V//V)' */
   real_T DACBSaturationV;              /* '<S3>/DACB Saturation (V)' */
   real_T HILReadAnalog;                /* '<S2>/HIL Read Analog' */
+  real_T Subtract;                     /* '<Root>/Subtract' */
+  real_T Gain;                         /* '<S1>/Gain' */
+  real_T Gain1;                        /* '<S1>/Gain1' */
   real_T TransferFcn;                  /* '<S1>/Transfer Fcn' */
   real_T TransferFcn1;                 /* '<S1>/Transfer Fcn1' */
   real_T y;                            /* '<Root>/Q(s)' */
@@ -913,6 +914,7 @@ typedef struct {
 
 /* Continuous states (default storage) */
 typedef struct {
+  real_T TransferFcn2_CSTATE;          /* '<S1>/Transfer Fcn2' */
   real_T TransferFcn_CSTATE;           /* '<S1>/Transfer Fcn' */
   real_T TransferFcn1_CSTATE;          /* '<S1>/Transfer Fcn1' */
   real_T Qs_CSTATE[2];                 /* '<Root>/Q(s)' */
@@ -921,6 +923,7 @@ typedef struct {
 
 /* State derivatives (default storage) */
 typedef struct {
+  real_T TransferFcn2_CSTATE;          /* '<S1>/Transfer Fcn2' */
   real_T TransferFcn_CSTATE;           /* '<S1>/Transfer Fcn' */
   real_T TransferFcn1_CSTATE;          /* '<S1>/Transfer Fcn1' */
   real_T Qs_CSTATE[2];                 /* '<Root>/Q(s)' */
@@ -929,6 +932,7 @@ typedef struct {
 
 /* State disabled  */
 typedef struct {
+  boolean_T TransferFcn2_CSTATE;       /* '<S1>/Transfer Fcn2' */
   boolean_T TransferFcn_CSTATE;        /* '<S1>/Transfer Fcn' */
   boolean_T TransferFcn1_CSTATE;       /* '<S1>/Transfer Fcn1' */
   boolean_T Qs_CSTATE[2];              /* '<Root>/Q(s)' */
@@ -1022,17 +1026,11 @@ struct P_operate_flexible_link_T_ {
   real_T EncoderCalibrationradcount_Gain;/* Expression: 0.0015
                                           * Referenced by: '<S2>/Encoder Calibration  (rad//count)'
                                           */
-  real_T Constant_Value;               /* Expression: 0.6
-                                        * Referenced by: '<Root>/Constant'
+  real_T TransferFcn2_A;               /* Computed Parameter: TransferFcn2_A
+                                        * Referenced by: '<S1>/Transfer Fcn2'
                                         */
-  real_T pos_Value;                    /* Expression: 0.45703125
-                                        * Referenced by: '<Root>/pos'
-                                        */
-  real_T Gain_Gain;                    /* Expression: 1.08*0.8/(9.8*0.2)
-                                        * Referenced by: '<S1>/Gain'
-                                        */
-  real_T Gain1_Gain;                   /* Expression: 50
-                                        * Referenced by: '<S1>/Gain1'
+  real_T TransferFcn2_C;               /* Computed Parameter: TransferFcn2_C
+                                        * Referenced by: '<S1>/Transfer Fcn2'
                                         */
   real_T DirectionConventionRightHandsys;/* Expression: -1
                                           * Referenced by: '<S3>/Direction Convention: (Right-Hand) system'
@@ -1054,6 +1052,18 @@ struct P_operate_flexible_link_T_ {
                                         */
   real_T EnableVoltPAQX2X4_Value[4];   /* Expression: [1 1 1 1]
                                         * Referenced by: '<S2>/Enable VoltPAQ-X2,X4'
+                                        */
+  real_T Constant_Value;               /* Expression: 0.6
+                                        * Referenced by: '<Root>/Constant'
+                                        */
+  real_T pos_Value;                    /* Expression: 0.4525098164876302
+                                        * Referenced by: '<Root>/pos'
+                                        */
+  real_T Gain_Gain;                    /* Expression: 1.08*0.8/(9.8*0.2)
+                                        * Referenced by: '<S1>/Gain'
+                                        */
+  real_T Gain1_Gain;                   /* Expression: 1
+                                        * Referenced by: '<S1>/Gain1'
                                         */
   real_T TransferFcn_A;                /* Computed Parameter: TransferFcn_A
                                         * Referenced by: '<S1>/Transfer Fcn'
@@ -1268,7 +1278,7 @@ struct tag_RTM_operate_flexible_link_T {
   boolean_T zCCacheNeedsReset;
   boolean_T derivCacheNeedsReset;
   boolean_T CTOutputIncnstWithState;
-  real_T odeF[1][5];
+  real_T odeF[1][6];
   ODE1_IntgData intgData;
   void *dwork;
 
