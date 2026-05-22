@@ -100,6 +100,9 @@ def main():
         else:
             # 未検出: detected フラグのみ落とす (pos は前回値を保持)
             buf[OFFSET_DETECTED] = 0
+        cv2.imshow("track", frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
     # ループ脱出 (ret=False など)
     buf[OFFSET_ALIVE] = 0

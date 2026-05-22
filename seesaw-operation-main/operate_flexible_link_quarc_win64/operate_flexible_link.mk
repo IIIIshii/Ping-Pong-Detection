@@ -2,7 +2,7 @@
 ## Makefile generated for component 'operate_flexible_link'. 
 ## 
 ## Makefile     : operate_flexible_link.mk
-## Generated on : Thu May 21 16:56:36 2026
+## Generated on : Fri May 22 16:34:43 2026
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)\operate_flexible_link.rt-win64
 ## Product type : executable
 ## 
@@ -194,7 +194,7 @@ INCLUDES = $(INCLUDES_BUILDINFO)
 DEFINES_BUILD_ARGS = -DCLASSIC_INTERFACE=1 -DALLOCATIONFCN=0 -DEXT_MODE=1 -DMAT_FILE=0 -DONESTEPFCN=0 -DTERMFCN=1 -DMULTI_INSTANCE_CODE=0 -DINTEGER_CODE=0 -DMT=0
 DEFINES_CUSTOM = 
 DEFINES_OPTS = -DON_TARGET_WAIT_FOR_START=0 -DTID01EQ=1
-DEFINES_STANDARD = -DMODEL=operate_flexible_link -DNUMST=2 -DNCSTATES=6 -DHAVESTDIO -DRT -DUSE_RTMODEL
+DEFINES_STANDARD = -DMODEL=operate_flexible_link -DNUMST=2 -DNCSTATES=8 -DHAVESTDIO -DRT -DUSE_RTMODEL
 
 DEFINES = $(DEFINES_BUILD_ARGS) $(DEFINES_CUSTOM) $(DEFINES_OPTS) $(DEFINES_STANDARD)
 
