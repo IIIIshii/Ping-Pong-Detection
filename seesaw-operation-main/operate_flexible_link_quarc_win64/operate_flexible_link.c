@@ -7,9 +7,9 @@
  *
  * Code generation for model "operate_flexible_link".
  *
- * Model version              : 11.150
+ * Model version              : 11.172
  * Simulink Coder version : 9.9 (R2023a) 19-Nov-2022
- * C source code generated on : Fri May 22 18:19:13 2026
+ * C source code generated on : Thu May 28 16:15:19 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -19,15 +19,12 @@
  */
 
 #include "operate_flexible_link.h"
-#include "rtwtypes.h"
 #include <math.h>
+#include "rtwtypes.h"
 #include "operate_flexible_link_private.h"
 #include <string.h>
 #include "rt_nonfinite.h"
 #include "operate_flexible_link_dt.h"
-
-/* Named constants for MATLAB Function: '<Root>/MATLAB Function' */
-#define operate_flexible_lin_CALL_EVENT (-1)
 
 /* Block signals (default storage) */
 B_operate_flexible_link_T operate_flexible_link_B;
@@ -82,7 +79,7 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
   ODE1_IntgData *id = (ODE1_IntgData *)rtsiGetSolverData(si);
   real_T *f0 = id->f[0];
   int_T i;
-  int_T nXc = 8;
+  int_T nXc = 3;
   rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
   rtsiSetdX(si, f0);
   operate_flexible_link_derivatives();
@@ -122,7 +119,7 @@ void operate_flexible_link_output(void)
   }
 
   if (rtmIsMajorTimeStep(operate_flexible_link_M)) {
-    /* S-Function (hil_read_encoder_block): '<S4>/HIL Read Encoder' */
+    /* S-Function (hil_read_encoder_block): '<S1>/HIL Read Encoder' */
 
     /* S-Function Block: operate_flexible_link/SRV02 Flexible Link/HIL Read Encoder (hil_read_encoder_block) */
     {
@@ -140,110 +137,75 @@ void operate_flexible_link_output(void)
       }
     }
 
-    /* Gain: '<S4>/Encoder Calibration  (rad//count)' */
+    /* Gain: '<S1>/Encoder Calibration  (rad//count)' */
     operate_flexible_link_B.EncoderCalibrationradcount =
       operate_flexible_link_P.EncoderCalibrationradcount_Gain *
       operate_flexible_link_B.HILReadEncoder;
-
-    /* Constant: '<Root>/pos' */
-    operate_flexible_link_B.pos = operate_flexible_link_P.pos_Value;
-
-    /* Sum: '<Root>/Subtract' incorporates:
-     *  Constant: '<Root>/Constant2'
-     */
-    operate_flexible_link_B.Subtract = operate_flexible_link_P.Constant2_Value -
-      operate_flexible_link_B.pos;
-
-    /* Gain: '<Root>/Gain4' */
-    operate_flexible_link_B.Gain4 = operate_flexible_link_P.Gain4_Gain *
-      operate_flexible_link_B.Subtract;
   }
 
   /* TransferFcn: '<Root>/Transfer Fcn1' */
   operate_flexible_link_B.TransferFcn1 = operate_flexible_link_P.TransferFcn1_C *
     operate_flexible_link_X.TransferFcn1_CSTATE;
-  operate_flexible_link_B.TransferFcn1 += operate_flexible_link_P.TransferFcn1_D
-    * operate_flexible_link_B.Gain4;
 
-  /* Gain: '<Root>/Gain3' */
-  operate_flexible_link_B.Gain3 = operate_flexible_link_P.Gain3_Gain *
-    operate_flexible_link_B.TransferFcn1;
-
-  /* TransferFcn: '<Root>/Transfer Fcn3' */
-  operate_flexible_link_B.TransferFcn3 = operate_flexible_link_P.TransferFcn3_C *
-    operate_flexible_link_X.TransferFcn3_CSTATE;
-  operate_flexible_link_B.TransferFcn3 += operate_flexible_link_P.TransferFcn3_D
-    * operate_flexible_link_B.Gain3;
-
-  /* Gain: '<Root>/Gain5' */
-  operate_flexible_link_B.Gain5 = operate_flexible_link_P.Gain5_Gain *
-    operate_flexible_link_B.TransferFcn1;
-
-  /* MATLAB Function: '<Root>/MATLAB Function' */
-  operate_flexible_link_DW.sfEvent = operate_flexible_lin_CALL_EVENT;
-  if ((operate_flexible_link_B.TransferFcn3 * operate_flexible_link_B.Gain5 >
-       0.0) && (fabs(operate_flexible_link_B.TransferFcn3) >= fabs
-                (operate_flexible_link_B.Gain5))) {
-    operate_flexible_link_B.y_c = operate_flexible_link_B.Gain5;
-  } else {
-    operate_flexible_link_B.y_c = operate_flexible_link_B.TransferFcn3;
-  }
-
-  /* End of MATLAB Function: '<Root>/MATLAB Function' */
+  /* TransferFcn: '<Root>/Transfer Fcn2' */
+  operate_flexible_link_B.TransferFcn2 = operate_flexible_link_P.TransferFcn2_C *
+    operate_flexible_link_X.TransferFcn2_CSTATE;
+  operate_flexible_link_B.TransferFcn2 += operate_flexible_link_P.TransferFcn2_D
+    * operate_flexible_link_B.TransferFcn1;
 
   /* Sum: '<Root>/Subtract1' */
-  operate_flexible_link_B.Subtract1 = operate_flexible_link_B.y_c -
+  operate_flexible_link_B.Subtract1 = operate_flexible_link_B.TransferFcn2 -
     operate_flexible_link_B.EncoderCalibrationradcount;
 
-  /* Gain: '<Root>/Gain2' */
-  operate_flexible_link_B.Gain2 = operate_flexible_link_P.Gain2_Gain *
+  /* Gain: '<Root>/Gain1' */
+  operate_flexible_link_B.Gain1 = operate_flexible_link_P.Gain1_Gain *
     operate_flexible_link_B.Subtract1;
 
-  /* Gain: '<S5>/Direction Convention: (Right-Hand) system' */
+  /* Gain: '<S2>/Direction Convention: (Right-Hand) system' */
   operate_flexible_link_B.DirectionConventionRightHandsys =
     operate_flexible_link_P.DirectionConventionRightHandsys *
-    operate_flexible_link_B.Gain2;
+    operate_flexible_link_B.Gain1;
 
-  /* Saturate: '<S5>/Amplifier Saturation (V)' */
+  /* Saturate: '<S2>/Amplifier Saturation (V)' */
   u0 = operate_flexible_link_B.DirectionConventionRightHandsys;
   u1 = operate_flexible_link_P.AmplifierSaturationV_LowerSat;
   u2 = operate_flexible_link_P.AmplifierSaturationV_UpperSat;
   if (u0 > u2) {
-    /* Saturate: '<S5>/Amplifier Saturation (V)' */
+    /* Saturate: '<S2>/Amplifier Saturation (V)' */
     operate_flexible_link_B.AmplifierSaturationV = u2;
   } else if (u0 < u1) {
-    /* Saturate: '<S5>/Amplifier Saturation (V)' */
+    /* Saturate: '<S2>/Amplifier Saturation (V)' */
     operate_flexible_link_B.AmplifierSaturationV = u1;
   } else {
-    /* Saturate: '<S5>/Amplifier Saturation (V)' */
+    /* Saturate: '<S2>/Amplifier Saturation (V)' */
     operate_flexible_link_B.AmplifierSaturationV = u0;
   }
 
-  /* End of Saturate: '<S5>/Amplifier Saturation (V)' */
+  /* End of Saturate: '<S2>/Amplifier Saturation (V)' */
 
-  /* Gain: '<S5>/Inverse Amplifier  Gain (V//V)' */
+  /* Gain: '<S2>/Inverse Amplifier  Gain (V//V)' */
   operate_flexible_link_B.InverseAmplifierGainVV =
     operate_flexible_link_P.InverseAmplifierGainVV_Gain *
     operate_flexible_link_B.AmplifierSaturationV;
 
-  /* Saturate: '<S5>/DACB Saturation (V)' */
+  /* Saturate: '<S2>/DACB Saturation (V)' */
   u0 = operate_flexible_link_B.InverseAmplifierGainVV;
   u1 = operate_flexible_link_P.DACBSaturationV_LowerSat;
   u2 = operate_flexible_link_P.DACBSaturationV_UpperSat;
   if (u0 > u2) {
-    /* Saturate: '<S5>/DACB Saturation (V)' */
+    /* Saturate: '<S2>/DACB Saturation (V)' */
     operate_flexible_link_B.DACBSaturationV = u2;
   } else if (u0 < u1) {
-    /* Saturate: '<S5>/DACB Saturation (V)' */
+    /* Saturate: '<S2>/DACB Saturation (V)' */
     operate_flexible_link_B.DACBSaturationV = u1;
   } else {
-    /* Saturate: '<S5>/DACB Saturation (V)' */
+    /* Saturate: '<S2>/DACB Saturation (V)' */
     operate_flexible_link_B.DACBSaturationV = u0;
   }
 
-  /* End of Saturate: '<S5>/DACB Saturation (V)' */
+  /* End of Saturate: '<S2>/DACB Saturation (V)' */
   if (rtmIsMajorTimeStep(operate_flexible_link_M)) {
-    /* S-Function (hil_write_analog_block): '<S4>/HIL Write Analog' */
+    /* S-Function (hil_write_analog_block): '<S1>/HIL Write Analog' */
 
     /* S-Function Block: operate_flexible_link/SRV02 Flexible Link/HIL Write Analog (hil_write_analog_block) */
     {
@@ -258,8 +220,8 @@ void operate_flexible_link_output(void)
       }
     }
 
-    /* S-Function (hil_write_digital_block): '<S4>/HIL Write Digital' incorporates:
-     *  Constant: '<S4>/Enable VoltPAQ-X2,X4'
+    /* S-Function (hil_write_digital_block): '<S1>/HIL Write Digital' incorporates:
+     *  Constant: '<S1>/Enable VoltPAQ-X2,X4'
      */
 
     /* S-Function Block: operate_flexible_link/SRV02 Flexible Link/HIL Write Digital (hil_write_digital_block) */
@@ -283,7 +245,7 @@ void operate_flexible_link_output(void)
       }
     }
 
-    /* S-Function (hil_read_analog_block): '<S4>/HIL Read Analog' */
+    /* S-Function (hil_read_analog_block): '<S1>/HIL Read Analog' */
 
     /* S-Function Block: operate_flexible_link/SRV02 Flexible Link/HIL Read Analog (hil_read_analog_block) */
     {
@@ -300,25 +262,47 @@ void operate_flexible_link_output(void)
       operate_flexible_link_B.HILReadAnalog =
         operate_flexible_link_DW.HILReadAnalog_Buffer;
     }
+  }
+
+  /* Sin: '<Root>/Sine Wave' */
+  operate_flexible_link_B.SineWave = sin(operate_flexible_link_P.SineWave_Freq *
+    operate_flexible_link_M->Timing.t[0] +
+    operate_flexible_link_P.SineWave_Phase) *
+    operate_flexible_link_P.SineWave_Amp + operate_flexible_link_P.SineWave_Bias;
+  if (rtmIsMajorTimeStep(operate_flexible_link_M)) {
+    /* SignalConversion generated from: '<Root>/To File' incorporates:
+     *  Constant: '<Root>/pos'
+     */
+    operate_flexible_link_B.TmpSignalConversionAtToFileInpo[0] =
+      operate_flexible_link_P.pos_Value;
+    operate_flexible_link_B.TmpSignalConversionAtToFileInpo[1] =
+      operate_flexible_link_B.EncoderCalibrationradcount;
+    operate_flexible_link_B.TmpSignalConversionAtToFileInpo[2] =
+      operate_flexible_link_B.Gain1;
+    operate_flexible_link_B.TmpSignalConversionAtToFileInpo[3] =
+      operate_flexible_link_B.SineWave;
 
     /* ToFile: '<Root>/To File' */
     {
       if (!(++operate_flexible_link_DW.ToFile_IWORK.Decimation % 1) &&
-          (operate_flexible_link_DW.ToFile_IWORK.Count * (1 + 1)) + 1 <
+          (operate_flexible_link_DW.ToFile_IWORK.Count * (4 + 1)) + 1 <
           100000000 ) {
         FILE *fp = (FILE *) operate_flexible_link_DW.ToFile_PWORK.FilePtr;
         if (fp != (NULL)) {
-          real_T u[1 + 1];
+          real_T u[4 + 1];
           operate_flexible_link_DW.ToFile_IWORK.Decimation = 0;
           u[0] = operate_flexible_link_M->Timing.t[1];
-          u[1] = operate_flexible_link_B.pos;
-          if (fwrite(u, sizeof(real_T), 1 + 1, fp) != 1 + 1) {
+          u[1] = operate_flexible_link_B.TmpSignalConversionAtToFileInpo[0];
+          u[2] = operate_flexible_link_B.TmpSignalConversionAtToFileInpo[1];
+          u[3] = operate_flexible_link_B.TmpSignalConversionAtToFileInpo[2];
+          u[4] = operate_flexible_link_B.TmpSignalConversionAtToFileInpo[3];
+          if (fwrite(u, sizeof(real_T), 4 + 1, fp) != 4 + 1) {
             rtmSetErrorStatus(operate_flexible_link_M,
                               "Error writing to MAT-file result.mat");
             return;
           }
 
-          if (((++operate_flexible_link_DW.ToFile_IWORK.Count) * (1 + 1))+1 >=
+          if (((++operate_flexible_link_DW.ToFile_IWORK.Count) * (4 + 1))+1 >=
               100000000) {
             (void)fprintf(stdout,
                           "*** The ToFile block will stop logging data before\n"
@@ -331,58 +315,25 @@ void operate_flexible_link_output(void)
     }
   }
 
-  /* Step: '<Root>/Step' */
-  u0 = operate_flexible_link_M->Timing.t[0];
-  if (u0 < operate_flexible_link_P.Step_Time) {
-    /* Step: '<Root>/Step' */
-    operate_flexible_link_B.Step = operate_flexible_link_P.Step_Y0;
-  } else {
-    /* Step: '<Root>/Step' */
-    operate_flexible_link_B.Step = operate_flexible_link_P.Step_YFinal;
-  }
+  /* Sum: '<Root>/Subtract' incorporates:
+   *  Constant: '<Root>/pos'
+   */
+  operate_flexible_link_B.Subtract = operate_flexible_link_B.SineWave -
+    operate_flexible_link_P.pos_Value;
 
-  /* End of Step: '<Root>/Step' */
+  /* Gain: '<Root>/Gain4' */
+  operate_flexible_link_B.Gain4 = operate_flexible_link_P.Gain4_Gain *
+    operate_flexible_link_B.Subtract;
 
-  /* Gain: '<Root>/Gain1' */
-  operate_flexible_link_B.Gain1 = operate_flexible_link_P.Gain1_Gain *
-    operate_flexible_link_B.Step;
+  /* Gain: '<Root>/Gain3' */
+  operate_flexible_link_B.Gain3 = operate_flexible_link_P.Gain3_Gain *
+    operate_flexible_link_B.Gain4;
 
-  /* TransferFcn: '<Root>/Transfer Fcn2' */
-  operate_flexible_link_B.TransferFcn2 = operate_flexible_link_P.TransferFcn2_C *
-    operate_flexible_link_X.TransferFcn2_CSTATE;
-  if (rtmIsMajorTimeStep(operate_flexible_link_M)) {
-    /* Gain: '<S1>/Gain' */
-    operate_flexible_link_B.Gain = operate_flexible_link_P.Gain_Gain * 0.0;
-
-    /* Gain: '<S1>/Gain1' */
-    operate_flexible_link_B.Gain1_p = operate_flexible_link_P.Gain1_Gain_b *
-      operate_flexible_link_B.Gain;
-  }
-
-  /* TransferFcn: '<S1>/Transfer Fcn' */
-  operate_flexible_link_B.TransferFcn = operate_flexible_link_P.TransferFcn_C *
-    operate_flexible_link_X.TransferFcn_CSTATE;
-  operate_flexible_link_B.TransferFcn += operate_flexible_link_P.TransferFcn_D *
-    operate_flexible_link_B.Gain1_p;
-
-  /* TransferFcn: '<S1>/Transfer Fcn1' */
-  operate_flexible_link_B.TransferFcn1_d =
-    operate_flexible_link_P.TransferFcn1_C_c *
-    operate_flexible_link_X.TransferFcn1_CSTATE_f;
-  operate_flexible_link_B.TransferFcn1_d +=
-    operate_flexible_link_P.TransferFcn1_D_i *
-    operate_flexible_link_B.TransferFcn;
-
-  /* TransferFcn: '<S1>/Transfer Fcn2' */
-  operate_flexible_link_B.TransferFcn2_i =
-    operate_flexible_link_P.TransferFcn2_C_m *
-    operate_flexible_link_X.TransferFcn2_CSTATE_k;
-
-  /* TransferFcn: '<Root>/Q(s)' */
-  operate_flexible_link_B.y = operate_flexible_link_P.Qs_C[0] *
-    operate_flexible_link_X.Qs_CSTATE[0];
-  operate_flexible_link_B.y += operate_flexible_link_P.Qs_C[1] *
-    operate_flexible_link_X.Qs_CSTATE[1];
+  /* TransferFcn: '<Root>/Transfer Fcn3' */
+  operate_flexible_link_B.TransferFcn3 = operate_flexible_link_P.TransferFcn3_C *
+    operate_flexible_link_X.TransferFcn3_CSTATE;
+  operate_flexible_link_B.TransferFcn3 += operate_flexible_link_P.TransferFcn3_D
+    * operate_flexible_link_B.Gain3;
 }
 
 /* Model update function */
@@ -439,45 +390,23 @@ void operate_flexible_link_derivatives(void)
   /* Derivatives for TransferFcn: '<Root>/Transfer Fcn1' */
   _rtXdot->TransferFcn1_CSTATE = operate_flexible_link_P.TransferFcn1_A *
     operate_flexible_link_X.TransferFcn1_CSTATE;
-  _rtXdot->TransferFcn1_CSTATE += operate_flexible_link_B.Gain4;
+  _rtXdot->TransferFcn1_CSTATE += operate_flexible_link_B.TransferFcn3;
+
+  /* Derivatives for TransferFcn: '<Root>/Transfer Fcn2' */
+  _rtXdot->TransferFcn2_CSTATE = operate_flexible_link_P.TransferFcn2_A *
+    operate_flexible_link_X.TransferFcn2_CSTATE;
+  _rtXdot->TransferFcn2_CSTATE += operate_flexible_link_B.TransferFcn1;
 
   /* Derivatives for TransferFcn: '<Root>/Transfer Fcn3' */
   _rtXdot->TransferFcn3_CSTATE = operate_flexible_link_P.TransferFcn3_A *
     operate_flexible_link_X.TransferFcn3_CSTATE;
   _rtXdot->TransferFcn3_CSTATE += operate_flexible_link_B.Gain3;
-
-  /* Derivatives for TransferFcn: '<Root>/Transfer Fcn2' */
-  _rtXdot->TransferFcn2_CSTATE = operate_flexible_link_P.TransferFcn2_A *
-    operate_flexible_link_X.TransferFcn2_CSTATE;
-  _rtXdot->TransferFcn2_CSTATE += operate_flexible_link_B.Gain1;
-
-  /* Derivatives for TransferFcn: '<S1>/Transfer Fcn' */
-  _rtXdot->TransferFcn_CSTATE = operate_flexible_link_P.TransferFcn_A *
-    operate_flexible_link_X.TransferFcn_CSTATE;
-  _rtXdot->TransferFcn_CSTATE += operate_flexible_link_B.Gain1_p;
-
-  /* Derivatives for TransferFcn: '<S1>/Transfer Fcn1' */
-  _rtXdot->TransferFcn1_CSTATE_f = operate_flexible_link_P.TransferFcn1_A_p *
-    operate_flexible_link_X.TransferFcn1_CSTATE_f;
-  _rtXdot->TransferFcn1_CSTATE_f += operate_flexible_link_B.TransferFcn;
-
-  /* Derivatives for TransferFcn: '<S1>/Transfer Fcn2' */
-  _rtXdot->TransferFcn2_CSTATE_k = operate_flexible_link_P.TransferFcn2_A_b *
-    operate_flexible_link_X.TransferFcn2_CSTATE_k;
-  _rtXdot->TransferFcn2_CSTATE_k += operate_flexible_link_B.TransferFcn1_d;
-
-  /* Derivatives for TransferFcn: '<Root>/Q(s)' */
-  _rtXdot->Qs_CSTATE[0] = operate_flexible_link_P.Qs_A[0] *
-    operate_flexible_link_X.Qs_CSTATE[0];
-  _rtXdot->Qs_CSTATE[0] += operate_flexible_link_P.Qs_A[1] *
-    operate_flexible_link_X.Qs_CSTATE[1];
-  _rtXdot->Qs_CSTATE[1] = operate_flexible_link_X.Qs_CSTATE[0];
 }
 
 /* Model initialize function */
 void operate_flexible_link_initialize(void)
 {
-  /* Start for S-Function (hil_initialize_block): '<S4>/HIL Initialize' */
+  /* Start for S-Function (hil_initialize_block): '<S1>/HIL Initialize' */
 
   /* S-Function Block: operate_flexible_link/SRV02 Flexible Link/HIL Initialize (hil_initialize_block) */
   {
@@ -692,7 +621,7 @@ void operate_flexible_link_initialize(void)
       return;
     }
 
-    if (rt_WriteMat4FileHeader(fp, 1 + 1, 0, "result")) {
+    if (rt_WriteMat4FileHeader(fp, 4 + 1, 0, "result")) {
       rtmSetErrorStatus(operate_flexible_link_M,
                         "Error writing mat file header to file result.mat");
       return;
@@ -706,34 +635,17 @@ void operate_flexible_link_initialize(void)
   /* InitializeConditions for TransferFcn: '<Root>/Transfer Fcn1' */
   operate_flexible_link_X.TransferFcn1_CSTATE = 0.0;
 
-  /* InitializeConditions for TransferFcn: '<Root>/Transfer Fcn3' */
-  operate_flexible_link_X.TransferFcn3_CSTATE = 0.0;
-
   /* InitializeConditions for TransferFcn: '<Root>/Transfer Fcn2' */
   operate_flexible_link_X.TransferFcn2_CSTATE = 0.0;
 
-  /* InitializeConditions for TransferFcn: '<S1>/Transfer Fcn' */
-  operate_flexible_link_X.TransferFcn_CSTATE = 0.0;
-
-  /* InitializeConditions for TransferFcn: '<S1>/Transfer Fcn1' */
-  operate_flexible_link_X.TransferFcn1_CSTATE_f = 0.0;
-
-  /* InitializeConditions for TransferFcn: '<S1>/Transfer Fcn2' */
-  operate_flexible_link_X.TransferFcn2_CSTATE_k = 0.0;
-
-  /* InitializeConditions for TransferFcn: '<Root>/Q(s)' */
-  operate_flexible_link_X.Qs_CSTATE[0] = 0.0;
-  operate_flexible_link_X.Qs_CSTATE[1] = 0.0;
-
-  /* SystemInitialize for MATLAB Function: '<Root>/MATLAB Function' */
-  operate_flexible_link_DW.sfEvent = operate_flexible_lin_CALL_EVENT;
-  operate_flexible_link_DW.is_active_c2_operate_flexible_l = 0U;
+  /* InitializeConditions for TransferFcn: '<Root>/Transfer Fcn3' */
+  operate_flexible_link_X.TransferFcn3_CSTATE = 0.0;
 }
 
 /* Model terminate function */
 void operate_flexible_link_terminate(void)
 {
-  /* Terminate for S-Function (hil_initialize_block): '<S4>/HIL Initialize' */
+  /* Terminate for S-Function (hil_initialize_block): '<S1>/HIL Initialize' */
 
   /* S-Function Block: operate_flexible_link/SRV02 Flexible Link/HIL Initialize (hil_initialize_block) */
   {
@@ -846,7 +758,7 @@ void operate_flexible_link_terminate(void)
         return;
       }
 
-      if (rt_WriteMat4FileHeader(fp, 1 + 1,
+      if (rt_WriteMat4FileHeader(fp, 4 + 1,
            operate_flexible_link_DW.ToFile_IWORK.Count, "result")) {
         rtmSetErrorStatus(operate_flexible_link_M,
                           "Error writing header for result to MAT-file result.mat");
@@ -1008,19 +920,18 @@ RT_MODEL_operate_flexible_lin_T *operate_flexible_link(void)
   operate_flexible_link_M->Timing.stepSize1 = 0.033333333333333333;
 
   /* External mode info */
-  operate_flexible_link_M->Sizes.checksums[0] = (3006166320U);
-  operate_flexible_link_M->Sizes.checksums[1] = (4290889423U);
-  operate_flexible_link_M->Sizes.checksums[2] = (1722106711U);
-  operate_flexible_link_M->Sizes.checksums[3] = (848651695U);
+  operate_flexible_link_M->Sizes.checksums[0] = (2097998720U);
+  operate_flexible_link_M->Sizes.checksums[1] = (491423664U);
+  operate_flexible_link_M->Sizes.checksums[2] = (2731007888U);
+  operate_flexible_link_M->Sizes.checksums[3] = (2103675369U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
     static RTWExtModeInfo rt_ExtModeInfo;
-    static const sysRanDType *systemRan[2];
+    static const sysRanDType *systemRan[1];
     operate_flexible_link_M->extModeInfo = (&rt_ExtModeInfo);
     rteiSetSubSystemActiveVectorAddresses(&rt_ExtModeInfo, systemRan);
     systemRan[0] = &rtAlwaysEnabled;
-    systemRan[1] = &rtAlwaysEnabled;
     rteiSetModelMappingInfoPtr(operate_flexible_link_M->extModeInfo,
       &operate_flexible_link_M->SpecialInfo.mappingInfo);
     rteiSetChecksumsPtr(operate_flexible_link_M->extModeInfo,
@@ -1042,30 +953,24 @@ RT_MODEL_operate_flexible_lin_T *operate_flexible_link(void)
   {
     operate_flexible_link_B.HILReadEncoder = 0.0;
     operate_flexible_link_B.EncoderCalibrationradcount = 0.0;
-    operate_flexible_link_B.pos = 0.0;
-    operate_flexible_link_B.Subtract = 0.0;
-    operate_flexible_link_B.Gain4 = 0.0;
     operate_flexible_link_B.TransferFcn1 = 0.0;
-    operate_flexible_link_B.Gain3 = 0.0;
-    operate_flexible_link_B.TransferFcn3 = 0.0;
-    operate_flexible_link_B.Gain5 = 0.0;
+    operate_flexible_link_B.TransferFcn2 = 0.0;
     operate_flexible_link_B.Subtract1 = 0.0;
-    operate_flexible_link_B.Gain2 = 0.0;
+    operate_flexible_link_B.Gain1 = 0.0;
     operate_flexible_link_B.DirectionConventionRightHandsys = 0.0;
     operate_flexible_link_B.AmplifierSaturationV = 0.0;
     operate_flexible_link_B.InverseAmplifierGainVV = 0.0;
     operate_flexible_link_B.DACBSaturationV = 0.0;
     operate_flexible_link_B.HILReadAnalog = 0.0;
-    operate_flexible_link_B.Step = 0.0;
-    operate_flexible_link_B.Gain1 = 0.0;
-    operate_flexible_link_B.TransferFcn2 = 0.0;
-    operate_flexible_link_B.Gain = 0.0;
-    operate_flexible_link_B.Gain1_p = 0.0;
-    operate_flexible_link_B.TransferFcn = 0.0;
-    operate_flexible_link_B.TransferFcn1_d = 0.0;
-    operate_flexible_link_B.TransferFcn2_i = 0.0;
-    operate_flexible_link_B.y = 0.0;
-    operate_flexible_link_B.y_c = 0.0;
+    operate_flexible_link_B.SineWave = 0.0;
+    operate_flexible_link_B.TmpSignalConversionAtToFileInpo[0] = 0.0;
+    operate_flexible_link_B.TmpSignalConversionAtToFileInpo[1] = 0.0;
+    operate_flexible_link_B.TmpSignalConversionAtToFileInpo[2] = 0.0;
+    operate_flexible_link_B.TmpSignalConversionAtToFileInpo[3] = 0.0;
+    operate_flexible_link_B.Subtract = 0.0;
+    operate_flexible_link_B.Gain4 = 0.0;
+    operate_flexible_link_B.Gain3 = 0.0;
+    operate_flexible_link_B.TransferFcn3 = 0.0;
   }
 
   /* parameters */
@@ -1115,16 +1020,16 @@ RT_MODEL_operate_flexible_lin_T *operate_flexible_link(void)
   }
 
   /* Initialize Sizes */
-  operate_flexible_link_M->Sizes.numContStates = (8);/* Number of continuous states */
+  operate_flexible_link_M->Sizes.numContStates = (3);/* Number of continuous states */
   operate_flexible_link_M->Sizes.numPeriodicContStates = (0);
                                       /* Number of periodic continuous states */
   operate_flexible_link_M->Sizes.numY = (0);/* Number of model outputs */
   operate_flexible_link_M->Sizes.numU = (0);/* Number of model inputs */
   operate_flexible_link_M->Sizes.sysDirFeedThru = (0);/* The model is not direct feedthrough */
   operate_flexible_link_M->Sizes.numSampTimes = (2);/* Number of sample times */
-  operate_flexible_link_M->Sizes.numBlocks = (34);/* Number of blocks */
-  operate_flexible_link_M->Sizes.numBlockIO = (26);/* Number of block outputs */
-  operate_flexible_link_M->Sizes.numBlockPrms = (125);/* Sum of parameter "widths" */
+  operate_flexible_link_M->Sizes.numBlocks = (23);/* Number of blocks */
+  operate_flexible_link_M->Sizes.numBlockIO = (17);/* Number of block outputs */
+  operate_flexible_link_M->Sizes.numBlockPrms = (109);/* Sum of parameter "widths" */
   return operate_flexible_link_M;
 }
 
