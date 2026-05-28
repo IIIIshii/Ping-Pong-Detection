@@ -11,9 +11,9 @@ set term pngcairo # pngファイルに出力する。
 set output filename.".png" # ファイル名を設定する。
 
 # 軸ラベルを設定する。
-set xlabel '時刻 (s)'
-set ylabel 'ボールの位置 (m)'
-set y2label '入力値'
+set xlabel 'Time [s]'
+set ylabel 'Position [m]'
+set y2label 'Input Value'
 set ytics nomirror
 set y2tics nomirror
 
