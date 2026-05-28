@@ -68,7 +68,7 @@ def main():
         shm.unlink()
         sys.exit(0)
 
-    # OS からのシグナルで終了できるようハンドラを登録
+    # OSからのシグナルで終了できるようハンドラを登録
     # Ctrl+C
     signal.signal(signal.SIGINT,  _shutdown)
     #killとか
