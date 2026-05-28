@@ -10,7 +10,7 @@ set term pngcairo # pngファイルに出力する。
 set output filename."-input.png" # ファイル名を設定する。
 
 # 軸ラベルを設定する。
-set xlabel '時刻'
+set xlabel '時刻 (s)'
 set ylabel '入力値'
 
 # set logscale x # 横軸を対数スケールで表示する

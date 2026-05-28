@@ -10,7 +10,7 @@ set term pngcairo # pngファイルに出力する。
 set output filename."-ball.png" # ファイル名を設定する。
 
 # 軸ラベルを設定する。
-set xlabel '時刻'
+set xlabel '時刻 (s)'
 set ylabel 'ボールの位置 (m)'
 
 # set logscale x # 横軸を対数スケールで表示する
