@@ -7,9 +7,9 @@
  *
  * Code generation for model "operate_flexible_link".
  *
- * Model version              : 11.150
+ * Model version              : 11.172
  * Simulink Coder version : 9.9 (R2023a) 19-Nov-2022
- * C source code generated on : Fri May 22 18:19:13 2026
+ * C source code generated on : Thu May 28 16:15:19 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -72,7 +72,7 @@ static const char_T * rtDataTypeNames[] = {
 
 /* data type transitions for block I/O structure */
 static DataTypeTransition rtBTransitions[] = {
-  { (char_T *)(&operate_flexible_link_B.HILReadEncoder), 0, 0, 26 }
+  { (char_T *)(&operate_flexible_link_B.HILReadEncoder), 0, 0, 20 }
   ,
 
   { (char_T *)(&operate_flexible_link_DW.HILInitialize_AIMinimums[0]), 0, 0, 13
@@ -80,24 +80,21 @@ static DataTypeTransition rtBTransitions[] = {
 
   { (char_T *)(&operate_flexible_link_DW.HILInitialize_Card), 15, 0, 1 },
 
-  { (char_T *)(&operate_flexible_link_DW.HILReadEncoder_PWORK), 11, 0, 6 },
+  { (char_T *)(&operate_flexible_link_DW.HILReadEncoder_PWORK), 11, 0, 5 },
 
-  { (char_T *)(&operate_flexible_link_DW.HILInitialize_ClockModes[0]), 6, 0, 17
+  { (char_T *)(&operate_flexible_link_DW.HILInitialize_ClockModes[0]), 6, 0, 16
   },
 
   { (char_T *)(&operate_flexible_link_DW.ToFile_IWORK.Count), 10, 0, 1 },
 
-  { (char_T *)(&operate_flexible_link_DW.is_active_c2_operate_flexible_l), 3, 0,
-    1 },
-
-  { (char_T *)(&operate_flexible_link_DW.HILInitialize_DOBits[0]), 8, 0, 9 },
+  { (char_T *)(&operate_flexible_link_DW.HILInitialize_DOBits[0]), 8, 0, 8 },
 
   { (char_T *)(&operate_flexible_link_DW.HILWriteDigital_Buffer[0]), 16, 0, 4 }
 };
 
 /* data type transition table for block I/O structure */
 static DataTypeTransitionTable rtBTransTable = {
-  9U,
+  8U,
   rtBTransitions
 };
 
@@ -105,7 +102,7 @@ static DataTypeTransitionTable rtBTransTable = {
 static DataTypeTransition rtPTransitions[] = {
   { (char_T *)(&operate_flexible_link_P.HILReadEncoder_channels), 7, 0, 7 },
 
-  { (char_T *)(&operate_flexible_link_P.HILInitialize_OOTerminate), 0, 0, 58 },
+  { (char_T *)(&operate_flexible_link_P.HILInitialize_OOTerminate), 0, 0, 42 },
 
   { (char_T *)(&operate_flexible_link_P.HILInitialize_CKChannels[0]), 6, 0, 6 },
 

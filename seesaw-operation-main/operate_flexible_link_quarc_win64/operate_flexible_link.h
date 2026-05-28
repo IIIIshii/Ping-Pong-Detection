@@ -7,9 +7,9 @@
  *
  * Code generation for model "operate_flexible_link".
  *
- * Model version              : 11.150
+ * Model version              : 11.172
  * Simulink Coder version : 9.9 (R2023a) 19-Nov-2022
- * C source code generated on : Fri May 22 18:19:13 2026
+ * C source code generated on : Thu May 28 16:15:19 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -868,106 +868,78 @@
 
 /* Block signals (default storage) */
 typedef struct {
-  real_T HILReadEncoder;               /* '<S4>/HIL Read Encoder' */
+  real_T HILReadEncoder;               /* '<S1>/HIL Read Encoder' */
   real_T EncoderCalibrationradcount;
-                                  /* '<S4>/Encoder Calibration  (rad//count)' */
-  real_T pos;                          /* '<Root>/pos' */
+                                  /* '<S1>/Encoder Calibration  (rad//count)' */
+  real_T TransferFcn1;                 /* '<Root>/Transfer Fcn1' */
+  real_T TransferFcn2;                 /* '<Root>/Transfer Fcn2' */
+  real_T Subtract1;                    /* '<Root>/Subtract1' */
+  real_T Gain1;                        /* '<Root>/Gain1' */
+  real_T DirectionConventionRightHandsys;
+                          /* '<S2>/Direction Convention: (Right-Hand) system' */
+  real_T AmplifierSaturationV;         /* '<S2>/Amplifier Saturation (V)' */
+  real_T InverseAmplifierGainVV;     /* '<S2>/Inverse Amplifier  Gain (V//V)' */
+  real_T DACBSaturationV;              /* '<S2>/DACB Saturation (V)' */
+  real_T HILReadAnalog;                /* '<S1>/HIL Read Analog' */
+  real_T SineWave;                     /* '<Root>/Sine Wave' */
+  real_T TmpSignalConversionAtToFileInpo[4];
   real_T Subtract;                     /* '<Root>/Subtract' */
   real_T Gain4;                        /* '<Root>/Gain4' */
-  real_T TransferFcn1;                 /* '<Root>/Transfer Fcn1' */
   real_T Gain3;                        /* '<Root>/Gain3' */
   real_T TransferFcn3;                 /* '<Root>/Transfer Fcn3' */
-  real_T Gain5;                        /* '<Root>/Gain5' */
-  real_T Subtract1;                    /* '<Root>/Subtract1' */
-  real_T Gain2;                        /* '<Root>/Gain2' */
-  real_T DirectionConventionRightHandsys;
-                          /* '<S5>/Direction Convention: (Right-Hand) system' */
-  real_T AmplifierSaturationV;         /* '<S5>/Amplifier Saturation (V)' */
-  real_T InverseAmplifierGainVV;     /* '<S5>/Inverse Amplifier  Gain (V//V)' */
-  real_T DACBSaturationV;              /* '<S5>/DACB Saturation (V)' */
-  real_T HILReadAnalog;                /* '<S4>/HIL Read Analog' */
-  real_T Step;                         /* '<Root>/Step' */
-  real_T Gain1;                        /* '<Root>/Gain1' */
-  real_T TransferFcn2;                 /* '<Root>/Transfer Fcn2' */
-  real_T Gain;                         /* '<S1>/Gain' */
-  real_T Gain1_p;                      /* '<S1>/Gain1' */
-  real_T TransferFcn;                  /* '<S1>/Transfer Fcn' */
-  real_T TransferFcn1_d;               /* '<S1>/Transfer Fcn1' */
-  real_T TransferFcn2_i;               /* '<S1>/Transfer Fcn2' */
-  real_T y;                            /* '<Root>/Q(s)' */
-  real_T y_c;                          /* '<Root>/MATLAB Function' */
 } B_operate_flexible_link_T;
 
 /* Block states (default storage) for system '<Root>' */
 typedef struct {
-  real_T HILInitialize_AIMinimums[2];  /* '<S4>/HIL Initialize' */
-  real_T HILInitialize_AIMaximums[2];  /* '<S4>/HIL Initialize' */
-  real_T HILInitialize_AOMinimums[2];  /* '<S4>/HIL Initialize' */
-  real_T HILInitialize_AOMaximums[2];  /* '<S4>/HIL Initialize' */
-  real_T HILInitialize_AOVoltages[2];  /* '<S4>/HIL Initialize' */
-  real_T HILInitialize_FilterFrequency[2];/* '<S4>/HIL Initialize' */
-  real_T HILReadAnalog_Buffer;         /* '<S4>/HIL Read Analog' */
-  t_card HILInitialize_Card;           /* '<S4>/HIL Initialize' */
-  void *HILReadEncoder_PWORK;          /* '<S4>/HIL Read Encoder' */
-  void *HILWriteAnalog_PWORK;          /* '<S4>/HIL Write Analog' */
-  void *HILWriteDigital_PWORK;         /* '<S4>/HIL Write Digital' */
-  void *HILReadAnalog_PWORK;           /* '<S4>/HIL Read Analog' */
-  struct {
-    void *LoggedData;
-  } Scope_PWORK;                       /* '<Root>/Scope' */
-
+  real_T HILInitialize_AIMinimums[2];  /* '<S1>/HIL Initialize' */
+  real_T HILInitialize_AIMaximums[2];  /* '<S1>/HIL Initialize' */
+  real_T HILInitialize_AOMinimums[2];  /* '<S1>/HIL Initialize' */
+  real_T HILInitialize_AOMaximums[2];  /* '<S1>/HIL Initialize' */
+  real_T HILInitialize_AOVoltages[2];  /* '<S1>/HIL Initialize' */
+  real_T HILInitialize_FilterFrequency[2];/* '<S1>/HIL Initialize' */
+  real_T HILReadAnalog_Buffer;         /* '<S1>/HIL Read Analog' */
+  t_card HILInitialize_Card;           /* '<S1>/HIL Initialize' */
+  void *HILReadEncoder_PWORK;          /* '<S1>/HIL Read Encoder' */
+  void *HILWriteAnalog_PWORK;          /* '<S1>/HIL Write Analog' */
+  void *HILWriteDigital_PWORK;         /* '<S1>/HIL Write Digital' */
+  void *HILReadAnalog_PWORK;           /* '<S1>/HIL Read Analog' */
   struct {
     void *FilePtr;
   } ToFile_PWORK;                      /* '<Root>/To File' */
 
-  int32_T HILInitialize_ClockModes[3]; /* '<S4>/HIL Initialize' */
-  int32_T HILInitialize_DOStates[8];   /* '<S4>/HIL Initialize' */
-  int32_T HILInitialize_QuadratureModes[2];/* '<S4>/HIL Initialize' */
-  int32_T HILInitialize_InitialEICounts[2];/* '<S4>/HIL Initialize' */
-  int32_T HILReadEncoder_Buffer;       /* '<S4>/HIL Read Encoder' */
-  int32_T sfEvent;                     /* '<Root>/MATLAB Function' */
+  int32_T HILInitialize_ClockModes[3]; /* '<S1>/HIL Initialize' */
+  int32_T HILInitialize_DOStates[8];   /* '<S1>/HIL Initialize' */
+  int32_T HILInitialize_QuadratureModes[2];/* '<S1>/HIL Initialize' */
+  int32_T HILInitialize_InitialEICounts[2];/* '<S1>/HIL Initialize' */
+  int32_T HILReadEncoder_Buffer;       /* '<S1>/HIL Read Encoder' */
   struct {
     int_T Count;
     int_T Decimation;
   } ToFile_IWORK;                      /* '<Root>/To File' */
 
-  uint8_T is_active_c2_operate_flexible_l;/* '<Root>/MATLAB Function' */
-  boolean_T HILInitialize_DOBits[8];   /* '<S4>/HIL Initialize' */
-  boolean_T doneDoubleBufferReInit;    /* '<Root>/MATLAB Function' */
-  t_boolean HILWriteDigital_Buffer[4]; /* '<S4>/HIL Write Digital' */
+  boolean_T HILInitialize_DOBits[8];   /* '<S1>/HIL Initialize' */
+  t_boolean HILWriteDigital_Buffer[4]; /* '<S1>/HIL Write Digital' */
 } DW_operate_flexible_link_T;
 
 /* Continuous states (default storage) */
 typedef struct {
   real_T TransferFcn1_CSTATE;          /* '<Root>/Transfer Fcn1' */
-  real_T TransferFcn3_CSTATE;          /* '<Root>/Transfer Fcn3' */
   real_T TransferFcn2_CSTATE;          /* '<Root>/Transfer Fcn2' */
-  real_T TransferFcn_CSTATE;           /* '<S1>/Transfer Fcn' */
-  real_T TransferFcn1_CSTATE_f;        /* '<S1>/Transfer Fcn1' */
-  real_T TransferFcn2_CSTATE_k;        /* '<S1>/Transfer Fcn2' */
-  real_T Qs_CSTATE[2];                 /* '<Root>/Q(s)' */
+  real_T TransferFcn3_CSTATE;          /* '<Root>/Transfer Fcn3' */
 } X_operate_flexible_link_T;
 
 /* State derivatives (default storage) */
 typedef struct {
   real_T TransferFcn1_CSTATE;          /* '<Root>/Transfer Fcn1' */
-  real_T TransferFcn3_CSTATE;          /* '<Root>/Transfer Fcn3' */
   real_T TransferFcn2_CSTATE;          /* '<Root>/Transfer Fcn2' */
-  real_T TransferFcn_CSTATE;           /* '<S1>/Transfer Fcn' */
-  real_T TransferFcn1_CSTATE_f;        /* '<S1>/Transfer Fcn1' */
-  real_T TransferFcn2_CSTATE_k;        /* '<S1>/Transfer Fcn2' */
-  real_T Qs_CSTATE[2];                 /* '<Root>/Q(s)' */
+  real_T TransferFcn3_CSTATE;          /* '<Root>/Transfer Fcn3' */
 } XDot_operate_flexible_link_T;
 
 /* State disabled  */
 typedef struct {
   boolean_T TransferFcn1_CSTATE;       /* '<Root>/Transfer Fcn1' */
-  boolean_T TransferFcn3_CSTATE;       /* '<Root>/Transfer Fcn3' */
   boolean_T TransferFcn2_CSTATE;       /* '<Root>/Transfer Fcn2' */
-  boolean_T TransferFcn_CSTATE;        /* '<S1>/Transfer Fcn' */
-  boolean_T TransferFcn1_CSTATE_f;     /* '<S1>/Transfer Fcn1' */
-  boolean_T TransferFcn2_CSTATE_k;     /* '<S1>/Transfer Fcn2' */
-  boolean_T Qs_CSTATE[2];              /* '<Root>/Q(s)' */
+  boolean_T TransferFcn3_CSTATE;       /* '<Root>/Transfer Fcn3' */
 } XDis_operate_flexible_link_T;
 
 #ifndef ODE1_INTG
@@ -997,83 +969,122 @@ typedef struct {
 /* Parameters (default storage) */
 struct P_operate_flexible_link_T_ {
   uint32_T HILReadEncoder_channels;   /* Mask Parameter: HILReadEncoder_channels
-                                       * Referenced by: '<S4>/HIL Read Encoder'
+                                       * Referenced by: '<S1>/HIL Read Encoder'
                                        */
   uint32_T HILWriteAnalog_channels;   /* Mask Parameter: HILWriteAnalog_channels
-                                       * Referenced by: '<S4>/HIL Write Analog'
+                                       * Referenced by: '<S1>/HIL Write Analog'
                                        */
   uint32_T HILWriteDigital_channels[4];
                                      /* Mask Parameter: HILWriteDigital_channels
-                                      * Referenced by: '<S4>/HIL Write Digital'
+                                      * Referenced by: '<S1>/HIL Write Digital'
                                       */
   uint32_T HILReadAnalog_channels;     /* Mask Parameter: HILReadAnalog_channels
-                                        * Referenced by: '<S4>/HIL Read Analog'
+                                        * Referenced by: '<S1>/HIL Read Analog'
                                         */
   real_T HILInitialize_OOTerminate;/* Expression: set_other_outputs_at_terminate
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   real_T HILInitialize_OOExit;    /* Expression: set_other_outputs_at_switch_out
-                                   * Referenced by: '<S4>/HIL Initialize'
+                                   * Referenced by: '<S1>/HIL Initialize'
                                    */
   real_T HILInitialize_OOStart;        /* Expression: set_other_outputs_at_start
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T HILInitialize_OOEnter;    /* Expression: set_other_outputs_at_switch_in
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   real_T HILInitialize_AOFinal;        /* Expression: final_analog_outputs
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T HILInitialize_POFinal;        /* Expression: final_pwm_outputs
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T HILInitialize_AIHigh;         /* Expression: analog_input_maximums
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T HILInitialize_AILow;          /* Expression: analog_input_minimums
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T HILInitialize_AOHigh;         /* Expression: analog_output_maximums
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T HILInitialize_AOLow;          /* Expression: analog_output_minimums
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T HILInitialize_AOInitial;      /* Expression: initial_analog_outputs
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T HILInitialize_AOWatchdog;     /* Expression: watchdog_analog_outputs
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T HILInitialize_POFrequency;    /* Expression: pwm_frequency
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T HILInitialize_POInitial;      /* Expression: initial_pwm_outputs
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T HILInitialize_POWatchdog;     /* Expression: watchdog_pwm_outputs
-                                        * Referenced by: '<S4>/HIL Initialize'
+                                        * Referenced by: '<S1>/HIL Initialize'
                                         */
   real_T EncoderCalibrationradcount_Gain;/* Expression: 0.0015
-                                          * Referenced by: '<S4>/Encoder Calibration  (rad//count)'
+                                          * Referenced by: '<S1>/Encoder Calibration  (rad//count)'
                                           */
-  real_T Constant2_Value;              /* Expression: 0.6
-                                        * Referenced by: '<Root>/Constant2'
-                                        */
-  real_T pos_Value;                    /* Expression: 0.42421875
-                                        * Referenced by: '<Root>/pos'
-                                        */
-  real_T Gain4_Gain;                   /* Expression: 1.08*0.8/(9.8*0.1)
-                                        * Referenced by: '<Root>/Gain4'
-                                        */
   real_T TransferFcn1_A;               /* Computed Parameter: TransferFcn1_A
                                         * Referenced by: '<Root>/Transfer Fcn1'
                                         */
   real_T TransferFcn1_C;               /* Computed Parameter: TransferFcn1_C
                                         * Referenced by: '<Root>/Transfer Fcn1'
                                         */
-  real_T TransferFcn1_D;               /* Computed Parameter: TransferFcn1_D
-                                        * Referenced by: '<Root>/Transfer Fcn1'
+  real_T TransferFcn2_A;               /* Computed Parameter: TransferFcn2_A
+                                        * Referenced by: '<Root>/Transfer Fcn2'
+                                        */
+  real_T TransferFcn2_C;               /* Computed Parameter: TransferFcn2_C
+                                        * Referenced by: '<Root>/Transfer Fcn2'
+                                        */
+  real_T TransferFcn2_D;               /* Computed Parameter: TransferFcn2_D
+                                        * Referenced by: '<Root>/Transfer Fcn2'
+                                        */
+  real_T Gain1_Gain;                   /* Expression: 10
+                                        * Referenced by: '<Root>/Gain1'
+                                        */
+  real_T DirectionConventionRightHandsys;/* Expression: -1
+                                          * Referenced by: '<S2>/Direction Convention: (Right-Hand) system'
+                                          */
+  real_T AmplifierSaturationV_UpperSat;/* Expression: 24
+                                        * Referenced by: '<S2>/Amplifier Saturation (V)'
+                                        */
+  real_T AmplifierSaturationV_LowerSat;/* Expression: -24
+                                        * Referenced by: '<S2>/Amplifier Saturation (V)'
+                                        */
+  real_T InverseAmplifierGainVV_Gain;  /* Expression: 1
+                                        * Referenced by: '<S2>/Inverse Amplifier  Gain (V//V)'
+                                        */
+  real_T DACBSaturationV_UpperSat;     /* Expression: 10
+                                        * Referenced by: '<S2>/DACB Saturation (V)'
+                                        */
+  real_T DACBSaturationV_LowerSat;     /* Expression: -10
+                                        * Referenced by: '<S2>/DACB Saturation (V)'
+                                        */
+  real_T EnableVoltPAQX2X4_Value[4];   /* Expression: [1 1 1 1]
+                                        * Referenced by: '<S1>/Enable VoltPAQ-X2,X4'
+                                        */
+  real_T pos_Value;                    /* Expression: 0.3426132837931315
+                                        * Referenced by: '<Root>/pos'
+                                        */
+  real_T SineWave_Amp;                 /* Expression: 0.2
+                                        * Referenced by: '<Root>/Sine Wave'
+                                        */
+  real_T SineWave_Bias;                /* Expression: 0.5
+                                        * Referenced by: '<Root>/Sine Wave'
+                                        */
+  real_T SineWave_Freq;                /* Expression: 0.5
+                                        * Referenced by: '<Root>/Sine Wave'
+                                        */
+  real_T SineWave_Phase;               /* Expression: 0
+                                        * Referenced by: '<Root>/Sine Wave'
+                                        */
+  real_T Gain4_Gain;                   /* Expression: 1.06*0.8/(9.8*0.1)
+                                        * Referenced by: '<Root>/Gain4'
                                         */
   real_T Gain3_Gain;                   /* Expression: 0.3
                                         * Referenced by: '<Root>/Gain3'
@@ -1087,241 +1098,160 @@ struct P_operate_flexible_link_T_ {
   real_T TransferFcn3_D;               /* Computed Parameter: TransferFcn3_D
                                         * Referenced by: '<Root>/Transfer Fcn3'
                                         */
-  real_T Gain5_Gain;                   /* Expression: 2
-                                        * Referenced by: '<Root>/Gain5'
-                                        */
-  real_T Gain2_Gain;                   /* Expression: 10
-                                        * Referenced by: '<Root>/Gain2'
-                                        */
-  real_T DirectionConventionRightHandsys;/* Expression: -1
-                                          * Referenced by: '<S5>/Direction Convention: (Right-Hand) system'
-                                          */
-  real_T AmplifierSaturationV_UpperSat;/* Expression: 24
-                                        * Referenced by: '<S5>/Amplifier Saturation (V)'
-                                        */
-  real_T AmplifierSaturationV_LowerSat;/* Expression: -24
-                                        * Referenced by: '<S5>/Amplifier Saturation (V)'
-                                        */
-  real_T InverseAmplifierGainVV_Gain;  /* Expression: 1
-                                        * Referenced by: '<S5>/Inverse Amplifier  Gain (V//V)'
-                                        */
-  real_T DACBSaturationV_UpperSat;     /* Expression: 10
-                                        * Referenced by: '<S5>/DACB Saturation (V)'
-                                        */
-  real_T DACBSaturationV_LowerSat;     /* Expression: -10
-                                        * Referenced by: '<S5>/DACB Saturation (V)'
-                                        */
-  real_T EnableVoltPAQX2X4_Value[4];   /* Expression: [1 1 1 1]
-                                        * Referenced by: '<S4>/Enable VoltPAQ-X2,X4'
-                                        */
-  real_T Step_Time;                    /* Expression: 1
-                                        * Referenced by: '<Root>/Step'
-                                        */
-  real_T Step_Y0;                      /* Expression: 0
-                                        * Referenced by: '<Root>/Step'
-                                        */
-  real_T Step_YFinal;                  /* Expression: 1
-                                        * Referenced by: '<Root>/Step'
-                                        */
-  real_T Gain1_Gain;                   /* Expression: 0.4
-                                        * Referenced by: '<Root>/Gain1'
-                                        */
-  real_T TransferFcn2_A;               /* Computed Parameter: TransferFcn2_A
-                                        * Referenced by: '<Root>/Transfer Fcn2'
-                                        */
-  real_T TransferFcn2_C;               /* Computed Parameter: TransferFcn2_C
-                                        * Referenced by: '<Root>/Transfer Fcn2'
-                                        */
-  real_T Gain_Gain;                    /* Expression: 1.08*0.8/(9.8*0.2)
-                                        * Referenced by: '<S1>/Gain'
-                                        */
-  real_T Gain1_Gain_b;                 /* Expression: 5
-                                        * Referenced by: '<S1>/Gain1'
-                                        */
-  real_T TransferFcn_A;                /* Computed Parameter: TransferFcn_A
-                                        * Referenced by: '<S1>/Transfer Fcn'
-                                        */
-  real_T TransferFcn_C;                /* Computed Parameter: TransferFcn_C
-                                        * Referenced by: '<S1>/Transfer Fcn'
-                                        */
-  real_T TransferFcn_D;                /* Computed Parameter: TransferFcn_D
-                                        * Referenced by: '<S1>/Transfer Fcn'
-                                        */
-  real_T TransferFcn1_A_p;             /* Computed Parameter: TransferFcn1_A_p
-                                        * Referenced by: '<S1>/Transfer Fcn1'
-                                        */
-  real_T TransferFcn1_C_c;             /* Computed Parameter: TransferFcn1_C_c
-                                        * Referenced by: '<S1>/Transfer Fcn1'
-                                        */
-  real_T TransferFcn1_D_i;             /* Computed Parameter: TransferFcn1_D_i
-                                        * Referenced by: '<S1>/Transfer Fcn1'
-                                        */
-  real_T TransferFcn2_A_b;             /* Computed Parameter: TransferFcn2_A_b
-                                        * Referenced by: '<S1>/Transfer Fcn2'
-                                        */
-  real_T TransferFcn2_C_m;             /* Computed Parameter: TransferFcn2_C_m
-                                        * Referenced by: '<S1>/Transfer Fcn2'
-                                        */
-  real_T Qs_A[2];                      /* Computed Parameter: Qs_A
-                                        * Referenced by: '<Root>/Q(s)'
-                                        */
-  real_T Qs_C[2];                      /* Computed Parameter: Qs_C
-                                        * Referenced by: '<Root>/Q(s)'
-                                        */
   int32_T HILInitialize_CKChannels[3];
                                  /* Computed Parameter: HILInitialize_CKChannels
-                                  * Referenced by: '<S4>/HIL Initialize'
+                                  * Referenced by: '<S1>/HIL Initialize'
                                   */
   int32_T HILInitialize_DOWatchdog;
                                  /* Computed Parameter: HILInitialize_DOWatchdog
-                                  * Referenced by: '<S4>/HIL Initialize'
+                                  * Referenced by: '<S1>/HIL Initialize'
                                   */
   int32_T HILInitialize_EIInitial;/* Computed Parameter: HILInitialize_EIInitial
-                                   * Referenced by: '<S4>/HIL Initialize'
+                                   * Referenced by: '<S1>/HIL Initialize'
                                    */
   int32_T HILInitialize_POModes;    /* Computed Parameter: HILInitialize_POModes
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   uint32_T HILInitialize_AIChannels[2];
                                  /* Computed Parameter: HILInitialize_AIChannels
-                                  * Referenced by: '<S4>/HIL Initialize'
+                                  * Referenced by: '<S1>/HIL Initialize'
                                   */
   uint32_T HILInitialize_AOChannels[2];
                                  /* Computed Parameter: HILInitialize_AOChannels
-                                  * Referenced by: '<S4>/HIL Initialize'
+                                  * Referenced by: '<S1>/HIL Initialize'
                                   */
   uint32_T HILInitialize_DOChannels[8];
                                  /* Computed Parameter: HILInitialize_DOChannels
-                                  * Referenced by: '<S4>/HIL Initialize'
+                                  * Referenced by: '<S1>/HIL Initialize'
                                   */
   uint32_T HILInitialize_EIChannels[2];
                                  /* Computed Parameter: HILInitialize_EIChannels
-                                  * Referenced by: '<S4>/HIL Initialize'
+                                  * Referenced by: '<S1>/HIL Initialize'
                                   */
   uint32_T HILInitialize_EIQuadrature;
                                /* Computed Parameter: HILInitialize_EIQuadrature
-                                * Referenced by: '<S4>/HIL Initialize'
+                                * Referenced by: '<S1>/HIL Initialize'
                                 */
   boolean_T HILInitialize_Active;    /* Computed Parameter: HILInitialize_Active
-                                      * Referenced by: '<S4>/HIL Initialize'
+                                      * Referenced by: '<S1>/HIL Initialize'
                                       */
   boolean_T HILInitialize_AOTerminate;
                                 /* Computed Parameter: HILInitialize_AOTerminate
-                                 * Referenced by: '<S4>/HIL Initialize'
+                                 * Referenced by: '<S1>/HIL Initialize'
                                  */
   boolean_T HILInitialize_AOExit;    /* Computed Parameter: HILInitialize_AOExit
-                                      * Referenced by: '<S4>/HIL Initialize'
+                                      * Referenced by: '<S1>/HIL Initialize'
                                       */
   boolean_T HILInitialize_DOTerminate;
                                 /* Computed Parameter: HILInitialize_DOTerminate
-                                 * Referenced by: '<S4>/HIL Initialize'
+                                 * Referenced by: '<S1>/HIL Initialize'
                                  */
   boolean_T HILInitialize_DOExit;    /* Computed Parameter: HILInitialize_DOExit
-                                      * Referenced by: '<S4>/HIL Initialize'
+                                      * Referenced by: '<S1>/HIL Initialize'
                                       */
   boolean_T HILInitialize_POTerminate;
                                 /* Computed Parameter: HILInitialize_POTerminate
-                                 * Referenced by: '<S4>/HIL Initialize'
+                                 * Referenced by: '<S1>/HIL Initialize'
                                  */
   boolean_T HILInitialize_POExit;    /* Computed Parameter: HILInitialize_POExit
-                                      * Referenced by: '<S4>/HIL Initialize'
+                                      * Referenced by: '<S1>/HIL Initialize'
                                       */
   boolean_T HILInitialize_CKPStart;/* Computed Parameter: HILInitialize_CKPStart
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_CKPEnter;/* Computed Parameter: HILInitialize_CKPEnter
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_CKStart;  /* Computed Parameter: HILInitialize_CKStart
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_CKEnter;  /* Computed Parameter: HILInitialize_CKEnter
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_AIPStart;/* Computed Parameter: HILInitialize_AIPStart
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_AIPEnter;/* Computed Parameter: HILInitialize_AIPEnter
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_AOPStart;/* Computed Parameter: HILInitialize_AOPStart
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_AOPEnter;/* Computed Parameter: HILInitialize_AOPEnter
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_AOStart;  /* Computed Parameter: HILInitialize_AOStart
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_AOEnter;  /* Computed Parameter: HILInitialize_AOEnter
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_AOReset;  /* Computed Parameter: HILInitialize_AOReset
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_DOPStart;/* Computed Parameter: HILInitialize_DOPStart
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_DOPEnter;/* Computed Parameter: HILInitialize_DOPEnter
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_DOStart;  /* Computed Parameter: HILInitialize_DOStart
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_DOEnter;  /* Computed Parameter: HILInitialize_DOEnter
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_DOReset;  /* Computed Parameter: HILInitialize_DOReset
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_EIPStart;/* Computed Parameter: HILInitialize_EIPStart
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_EIPEnter;/* Computed Parameter: HILInitialize_EIPEnter
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_EIStart;  /* Computed Parameter: HILInitialize_EIStart
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_EIEnter;  /* Computed Parameter: HILInitialize_EIEnter
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_POPStart;/* Computed Parameter: HILInitialize_POPStart
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_POPEnter;/* Computed Parameter: HILInitialize_POPEnter
-                                    * Referenced by: '<S4>/HIL Initialize'
+                                    * Referenced by: '<S1>/HIL Initialize'
                                     */
   boolean_T HILInitialize_POStart;  /* Computed Parameter: HILInitialize_POStart
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_POEnter;  /* Computed Parameter: HILInitialize_POEnter
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_POReset;  /* Computed Parameter: HILInitialize_POReset
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_OOReset;  /* Computed Parameter: HILInitialize_OOReset
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_DOFinal;  /* Computed Parameter: HILInitialize_DOFinal
-                                     * Referenced by: '<S4>/HIL Initialize'
+                                     * Referenced by: '<S1>/HIL Initialize'
                                      */
   boolean_T HILInitialize_DOInitial;
                                   /* Computed Parameter: HILInitialize_DOInitial
-                                   * Referenced by: '<S4>/HIL Initialize'
+                                   * Referenced by: '<S1>/HIL Initialize'
                                    */
   boolean_T HILReadEncoder_Active;  /* Computed Parameter: HILReadEncoder_Active
-                                     * Referenced by: '<S4>/HIL Read Encoder'
+                                     * Referenced by: '<S1>/HIL Read Encoder'
                                      */
   boolean_T HILWriteAnalog_Active;  /* Computed Parameter: HILWriteAnalog_Active
-                                     * Referenced by: '<S4>/HIL Write Analog'
+                                     * Referenced by: '<S1>/HIL Write Analog'
                                      */
   boolean_T HILWriteDigital_Active;/* Computed Parameter: HILWriteDigital_Active
-                                    * Referenced by: '<S4>/HIL Write Digital'
+                                    * Referenced by: '<S1>/HIL Write Digital'
                                     */
   boolean_T HILReadAnalog_Active;    /* Computed Parameter: HILReadAnalog_Active
-                                      * Referenced by: '<S4>/HIL Read Analog'
+                                      * Referenced by: '<S1>/HIL Read Analog'
                                       */
 };
 
@@ -1351,7 +1281,7 @@ struct tag_RTM_operate_flexible_link_T {
   boolean_T zCCacheNeedsReset;
   boolean_T derivCacheNeedsReset;
   boolean_T CTOutputIncnstWithState;
-  real_T odeF[1][8];
+  real_T odeF[1][3];
   ODE1_IntgData intgData;
   void *dwork;
 
@@ -1475,10 +1405,7 @@ extern RT_MODEL_operate_flexible_lin_T *const operate_flexible_link_M;
  * Here is the system hierarchy for this model
  *
  * '<Root>' : 'operate_flexible_link'
- * '<S1>'   : 'operate_flexible_link/KIN_C(s)'
- * '<S2>'   : 'operate_flexible_link/MATLAB Function'
- * '<S3>'   : 'operate_flexible_link/Ramp'
- * '<S4>'   : 'operate_flexible_link/SRV02 Flexible Link'
- * '<S5>'   : 'operate_flexible_link/SRV02 Flexible Link/Actuator Dynamics'
+ * '<S1>'   : 'operate_flexible_link/SRV02 Flexible Link'
+ * '<S2>'   : 'operate_flexible_link/SRV02 Flexible Link/Actuator Dynamics'
  */
 #endif                                 /* RTW_HEADER_operate_flexible_link_h_ */
