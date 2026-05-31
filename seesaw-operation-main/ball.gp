@@ -11,7 +11,7 @@ set output filename."-ball.png" # ファイル名を設定する。
 
 # 軸ラベルを設定する。
 set xlabel 'Time [s]'
-set ylabel 'Position [m]'
+set ylabel 'Ball Position [m]'
 
 # set logscale x # 横軸を対数スケールで表示する
 # set logscale y # 縦軸を対数スケールで表示する
