@@ -49,7 +49,7 @@ array colors10[10] = ['#332288', '#88CCEE', '#44AA99', '#117733', '#999933', '#D
 
 # 1行目から順に、時刻・ボール位置・エンコーダ・入力（・目標値のsine wave）
 plot for [i = 1:4] filename.sprintf("-%d.txt", i) u 1:(($2)*1.06) title sprintf("Experiment-%d", i) pt 1 lc rgb colors7[i] w l,\
-     0.6 title "Objective" lc rgb colors7[5]
+     (0.6*1.06) title "Objective" lc rgb colors7[5]
 
 
 unset output # pngファイルを閉じる。
