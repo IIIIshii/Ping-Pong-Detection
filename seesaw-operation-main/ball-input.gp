@@ -8,7 +8,7 @@ filename = "result-single-1"
 # filename = "result-double_I-1"
 
 set term pngcairo # pngファイルに出力する。
-set output filename.".png" # ファイル名を設定する。
+set output filename."_ball-input.png" # ファイル名を設定する。
 
 # 軸ラベルを設定する。
 set xlabel 'Time [s]'
