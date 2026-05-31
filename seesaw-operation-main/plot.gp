@@ -3,8 +3,8 @@ set encoding utf8 # 文字化けを防ぐため、文字コードをUTF-8にす�
 set datafile separator "," # csvに対応させる。
 
 filename = "result-single-1"
-# filename = "result-single-H-1"
 # filename = "result-double-1"
+# filename = "result-double-2"
 # filename = "result-double_I-1"
 
 set term pngcairo # pngファイルに出力する。
