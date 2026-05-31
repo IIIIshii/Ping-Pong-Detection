@@ -52,9 +52,9 @@ array colors7[7] = ['#FF4B00', '#005AFF', '#03AF7A', '#4DC4FF', '#F6AA00', '#FFF
 array colors10[10] = ['#332288', '#88CCEE', '#44AA99', '#117733', '#999933', '#DDCC77', '#CC6677', '#882255', '#AA4499', '#DDDDDD']
 
 # 1行目から順に、時刻・ボール位置・エンコーダ・入力（・目標値のsine wave）
-plot filename.".txt" u 1:(($2)*1.06) title "ball" axis x1y1 pt 1 lc rgb colors7[1] w l,\
-     filename.".txt" u 1:4 title "input" axis x1y2 pt 1 lc rgb colors7[2] w l
-    #  filename.".txt" u 1:5 title "goal" pt 1 lc rgb colors7[3] w l
+plot filename.".txt" u 1:(($2)*1.06) title "Ball" axis x1y1 pt 1 lc rgb colors7[1] w l,\
+     filename.".txt" u 1:4 title "Input" axis x1y2 pt 1 lc rgb colors7[2] w l
+    #  filename.".txt" u 1:5 title "Objective" pt 1 lc rgb colors7[3] w l
 
 unset output # pngファイルを閉じる。
 reset # 設定をリセットする。
