@@ -21,7 +21,7 @@ set ylabel 'Ball Position [m]'
 # set mxtics
 # set grid xtics mxtics
 
-
+set xrange [0:50]
 # set xtics 1, 1, 4 # x軸の範囲を、1から4まで1刻みで表示させる。
 # set yrange [-100:20] # y軸の範囲を1.5から9までにする。
 
